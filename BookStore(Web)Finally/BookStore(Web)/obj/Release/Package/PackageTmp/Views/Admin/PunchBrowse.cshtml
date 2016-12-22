@@ -1,0 +1,305 @@
+﻿@model IEnumerable<global::BookStore_Web_.Models.Location>
+@{
+    ViewBag.Title = "打卡";
+    Layout = "~/Views/Shared/Easy.cshtml";
+}
+<link href="~/Content/animate.css" rel="stylesheet" />
+
+
+<body class="punchbody">
+    <div class="row col-md-7">
+        <div class="col-md-9" id="map" style="height:550px;width:550px">
+        </div>
+        <div class="col-md-3">
+
+            @Html.Action("PunchCreate")
+            <div class="col-md-6">
+                <a class="btn" id="findme"><img src="~/Content/img/尋找.png" style="height:90px" /></a>
+            </div>
+            <div class="col-md-6">
+                <a class="btn" id="finAll"><img src="~/Content/img/所有打卡.png" style="height:90px" /></a>
+            </div>
+
+        </div>
+
+        <div class="col-md-6">
+            <div class="col-md-4">
+                <input type="button" class="button button-3d button-highlight button-pill button-small" id="NTU" value="台灣大學" />
+            </div>
+            <div class="col-md-4">
+                <input type="button" class="button button-3d button-highlight button-pill button-small" id="Taichung" value="中興大學" />
+            </div>
+            <div class="col-md-4">
+                <input type="button" class="button button-3d button-highlight button-pill button-small" id="Kou" value="中山大學" />
+            </div>
+
+        </div>
+    </div>
+
+    <div id="locationTable" class="col-md-5">
+        <h1>地點管理</h1>
+        @Html.Action("LoadLocation")
+    </div>
+</body>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDKxBE29uoKIlnaBoB75O2Wwq3ZSORPGTA&signed_in=true&callback=initMap&libraries=places"></script>
+<script type="text/javascript">
+
+    var map;
+    var marker;
+    var init_lat = 23.5000;
+    var init_lng = 121.0000;
+    var icons = "../Content/img/flag.png";
+    function initialize() {
+        //Create initialize map   初始地圖
+        if (navigator.geolocation) {
+            map = new google.maps.Map(
+                document.getElementById("map"), {
+                    center: { lat: init_lat, lng: init_lng },
+                    zoom: 8,
+                    disableDefaultUI: true
+                }
+            );
+
+            marker = new google.maps.Marker({
+                position: { lat: init_lat, lng: init_lng },
+                map: map,
+                title: '初始位置',
+                icon: icons
+            });
+            $('#lat').text(init_lat);
+            $('#lng').text(init_lng);
+        } else {
+            alert("瀏覽器不支援地打卡系統")  // do not support the geolocation
+        }
+
+
+        var input = document.getElementById('pac-input');
+        var types = document.getElementById('type-selector');
+        map.controls[google.maps.ControlPosition.TOP_CENTER].push(input);
+        map.controls[google.maps.ControlPosition.TOP_CENTER].push(types);
+
+        var autocomplete = new google.maps.places.Autocomplete(input);
+        autocomplete.bindTo('bounds', map);
+
+        var infowindow = new google.maps.InfoWindow();
+
+
+        autocomplete.addListener('place_changed', function () {
+            infowindow.close();
+            marker.setVisible(false);
+            var place = autocomplete.getPlace();
+            if (!place.geometry) {
+                window.alert("Autocomplete's returned place contains no geometry");
+                return;
+            }
+
+            // If the place has a geometry, then present it on a map.
+            if (place.geometry.viewport) {
+                map.fitBounds(place.geometry.viewport);
+            } else {
+                map.setCenter(place.geometry.location);
+                map.setZoom(17);  // Why 17? Because it looks good.
+            }
+
+            var address = '';
+            if (place.address_components) {
+                address = [
+                  (place.address_components[0] && place.address_components[0].short_name || ''),
+                  (place.address_components[1] && place.address_components[1].short_name || ''),
+                  (place.address_components[2] && place.address_components[2].short_name || '')
+                ].join(' ');
+            }
+
+            infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
+            infowindow.open(map, marker);
+        });
+
+        // Sets a listener on a radio button to change the filter type on Places
+        // Autocomplete.
+        function setupClickListener(id, types) {
+            var radioButton = document.getElementById(id);
+            radioButton.addEventListener('click', function () {
+                autocomplete.setTypes(types);
+            });
+        }
+
+        setupClickListener('changetype-all', []);
+        setupClickListener('changetype-address', ['address']);
+        setupClickListener('changetype-establishment', ['establishment']);
+        setupClickListener('changetype-geocode', ['geocode']);
+
+    }
+    google.maps.event.addDomListener(window, 'load', initialize);
+
+    //The button can search your location 搜尋自己位置的Button
+
+    var startPos;
+    var geoSuccess = function (position) {
+        startPos = position;
+    };
+    navigator.geolocation.getCurrentPosition(geoSuccess);
+
+    $('#findme').click(function () {
+        map = new google.maps.Map(
+              document.getElementById("map"),
+            {
+                center: { lat: startPos.coords.latitude, lng: startPos.coords.longitude },
+                zoom: 14,
+                disableDefaultUI: true
+            }
+            );
+        marker = new google.maps.Marker({
+            position: { lat: startPos.coords.latitude, lng: startPos.coords.longitude },
+            map: map,
+            draggable: true,
+            animation: google.maps.Animation.DROP,
+            title: '您的位置',
+            icon: icons
+        });
+        marker.addListener('click', toggleBounce);
+        google.maps.event.addListener(marker, "dragend", function (event) {
+            $('#creat_location_lat').val(event.latLng.lat());
+            $('#creat_location_lng').val(event.latLng.lng());
+
+            $("#myLng").append('@Html.ActionLink("新增此打卡地點", "Create", new { id = "create" }, new { @class = "btn btn-info" })');
+        }); //get the marker's position 得到位置
+        function toggleBounce() {
+            if (marker.getAnimation() !== null) {
+                marker.setAnimation(null);
+            } else {
+                marker.setAnimation(google.maps.Animation.BOUNCE);
+            }
+        }
+        $('#lat').text(startPos.coords.latitude);
+        $('#lng').text(startPos.coords.longitude);
+        google.maps.event.trigger(map, 'resize');
+        //the submit button reload the LoadLocation
+    })
+
+
+    // punch the all_location button and then get all location via Json 點擊所有地點 由Json得到所有打卡地點
+
+    var neighbor = [];
+    $('#finAll').click(function () {
+        $.getJSON('@Url.Action("PunchGetAllLocation", "Admin")', {}, function (datas) {
+            $.each(datas, function (i, locat) {
+                neighbor.push({ lat: locat.lat, lng: locat.lng })
+
+            });
+            map = new google.maps.Map(
+             document.getElementById("map"),
+           {
+               zoom: 12,
+               center: { lat: startPos.coords.latitude, lng: startPos.coords.longitude },
+               disableDefaultUI: true
+           }
+           );
+            drop();
+        });
+
+    })
+
+    //drop the marker  標點掉下
+    function drop() {
+        clearMarkers();
+        for (var i = 0; i < neighbor.length; i++) {
+            addMarkerWithTimeout(neighbor[i], i * 200);
+        }
+    }
+
+    function addMarkerWithTimeout(position, timeout) {
+        setTimeout(function () {
+            marker = new google.maps.Marker({
+                position: position,
+                map: map,
+                animation: google.maps.Animation.DROP
+            }, timeout);
+        })
+    }
+    function clearMarkers() {
+        for (var i = 0; i < marker.length; i++) {
+            marker[i].setMap(null);
+        }
+        marker = [];
+    }
+
+
+
+    //This part is control Update
+    var flag1 = true;
+    var btn1 = $('input[class="btn-primary btn"]');
+    function load() {
+        $('#locationTable').load('@Url.Action("LoadLocation", "Admin")');
+    }
+    var re_id;
+    $(document).on('click', 'input[class="btn-primary btn"]', function () {
+        if (flag1) {
+            re_id = $(this).parent().parent().find('input').val();
+            //$(this).val("更改中");
+            for (var i = 1; i < 4; i++) {
+                var name = ".change" + i.toString();
+                var text = $(this).parent().parent().children(name).text();
+                $(this).parent().parent().children(name).text("");
+                $(this).parent().parent().children(name).append('<input id="loca' + i + '" type="text" name="sub' + i + '" value=' + text + ' class=' + name + '>');
+            }
+            $(this).parent().append('<input type="hidden" name="sub" value="' + re_id + '">');
+            $(this).parent().append('<input type="submit" value="更改中" class="btn-primary btn"/>')
+            $(this).remove();
+            flag1 = !flag1;
+        }
+        else {
+            //alert($('#Update0').text(re_id))
+            for (var i = 1; i < 4; i++) {
+                var name = '#loca' + i.toString();
+                var Upda = '#Update' + i.toString();
+            }
+            load();
+            flag1 = !flag1;
+        }
+    });
+
+
+    //This part is punching
+    $('#punch').click(function () {
+        map = new google.maps.Map(
+              document.getElementById("map"),
+            {
+                center: { lat: startPos.coords.latitude, lng: startPos.coords.longitude },
+                zoom: 14,
+                disableDefaultUI: true
+            }
+            );
+        marker = new google.maps.Marker({
+            position: { lat: startPos.coords.latitude, lng: startPos.coords.longitude },
+            map: map,
+            draggable: false,
+            animation: google.maps.Animation.DROP,
+            title: '您的位置',
+            icon: icons
+        })
+    }
+    )
+
+
+    // Demo Button Demo鍵
+    $('#NTU').click(function () {
+        $('#creat_location_name').val('台灣大學');
+        $('#creat_location_lat').val('25.016462523609935');
+        $('#creat_location_lng').val('121.54033785606691');
+    })
+
+
+    $('#Taichung').click(function () {
+        $('#creat_location_name').val('台中中興大學');
+        $('#creat_location_lat').val('24.12203030189395');
+        $('#creat_location_lng').val('120.67443495537111');
+    })
+
+    $('#Kou').click(function () {
+        $('#creat_location_name').val('高雄中山大學');
+        $('#creat_location_lat').val('22.626438798917185');
+        $('#creat_location_lng').val('120.26592379356691');
+    })
+
+</script>
+

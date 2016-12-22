@@ -1,0 +1,127 @@
+﻿@model  BookStore_Web_.Models.Schedule
+
+
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close"
+                                data-dismiss="modal" aria-hidden="true">
+                            &times;
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel">
+                            行程詳細表
+                        </h4>
+                    </div>
+                    <div class="modal-body">
+                        @using (@Html.BeginForm("Edit", "Admin", FormMethod.Post, new { @class = "form-horizontal", encType = "multipart/form-data" }))
+                        {
+                            <div class="form-group">
+                                <label for="Emp_Name" class="col-md-2 control-label">姓名</label>
+                                <div class="col-md-10">
+                                    <label>@Model.Emp_Information.Emp_Name</label>
+                                    <input type="hidden" id="EmployeeID" name="EmployeeID" class="form-control" value="@Model.EmployeeID" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="Emp_Dep" class="col-md-2 control-label">部門</label>
+                                <div class="col-md-10">
+                                    <input type="text" value="@Model.Emp_Information.Dept_Information.Dept_Name" class="form-control" id="Emp_Dep">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="sel1" class="col-md-2 control-label">打卡地點</label>
+                                <div class="col-md-10">
+                                    <select class="form-control" id="sel1">
+                                        @foreach (var opt in (IEnumerable<global::BookStore_Web_.Models.Location>)ViewBag.Location)
+                                        {
+                                            <option>@opt.Location_Name</option>
+                                        }
+                                    </select>
+                                </div>
+
+                            </div>
+                            <div class="form-group">
+                                <label for="Emp_ApplicationTime" class="col-md-2 control-label">申請開始時間</label>
+                                <div class="col-md-10">
+                                    @* 從資料庫抓時間到網頁(用超九) *@
+                                    @{string at = Model.Application_DateTime.ToString();
+                                    string[] at2 = at.Split(new char[4] { '/', '上', '午', '下' });
+                                    for (int i = 0, max = at2.Count(); i < max; i++)
+                                    {
+                                        at2[i] = at2[i].Trim();
+                                    }
+                                    if (Convert.ToInt32(at2[1]) <= 9) { at2[1] = "0" + at2[1]; }
+                                    if (Convert.ToInt32(at2[2]) <= 9) { at2[2] = "0" + at2[2]; }
+                                    string AFTime = string.Format("{0}-{1}-{2}T{3}", at2[0], at2[1], at2[2], at2[4]);
+
+                                    }
+                                    <input type="datetime-local" value="@AFTime" class="form-control" id="Emp_ApplicationTime">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="Emp_ScheduleTime" class="col-md-2 control-label">申請結束時間</label>
+                                <div class="col-md-10">
+                                    @* 從資料庫抓時間到網頁(用超九) *@
+                                    @{string st = Model.ScheduleDateTime.ToString();
+                                    string[] st2 = st.Split(new char[4] { '/', '上', '午', '下' });
+                                    for (int i = 0, max = st2.Count(); i < max; i++)
+                                    {
+                                        st2[i] = st2[i].Trim();
+                                    }
+                                    if (Convert.ToInt32(st2[1]) <= 9) { st2[1] = "0" + st2[1]; }
+                                    if (Convert.ToInt32(st2[2]) <= 9) { st2[2] = "0" + st2[2]; }
+                                    string SFTime = string.Format("{0}-{1}-{2}T{3}", st2[0], st2[1], st2[2], st2[4]);
+
+                                    }
+                                    <input type="datetime-local" value="@SFTime" class="form-control" id="Emp_ScheduleTime">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="Emp_state" class="col-md-2 control-label">審核狀態</label>
+                                <div class="col-md-10">
+                                    @Html.DropDownListFor(p => p.Check_ID, (SelectList)ViewBag.CheckState, "--請選擇--", new { @class = "form-control", @value = @Model.Check_ID })
+                                    @*<select class="form-control" id="Emp_state">
+
+                                            @foreach (var opt in (IEnumerable<global::BookStore_Web_.Models.ChechStatus>)ViewBag.state)
+                                            {
+                                                <option>@opt.Status</option>
+                                            }
+                                        </select>*@
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <button type="submit" class="btn btn-default">確定</button>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    @*<div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">關閉</button>
+                              <button type="button" class="btn btn-primary">提交更改</button>
+                        </div>*@
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal -->
+        </div>
+        <div class="col-md-4">
+
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+</div>
+
+<script src="~/Scripts/jquery-2.2.0.min.js"></script>
+@* section 測試是不會跑出來因為沒有section區段給他放  *@
+@*@section script{*@
+<script>
+        window.onload = function () {
+            $("#Emp_state")[0].selectedIndex =@(Model.Check_ID-1);
+        }
+</script>
+
+

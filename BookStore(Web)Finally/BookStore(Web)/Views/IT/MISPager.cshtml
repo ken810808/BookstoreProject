@@ -1,0 +1,11 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+
+@model IPagedList<BookStore_Web_.Models.Absence_Table>
+@{
+    ViewBag.Title = "MISPager";
+}
+@Html.PagedListPager(Model, page => "#",
+                     PagedListRenderOptions.PageNumbersOnly)
+
+

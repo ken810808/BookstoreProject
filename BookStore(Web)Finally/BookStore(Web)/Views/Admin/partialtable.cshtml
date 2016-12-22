@@ -1,0 +1,25 @@
+﻿@model IEnumerable<BookStore_Web_.Models.CheckInDetail>
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>員工姓名</th>
+            <th>打卡地點</th>
+            <th>時間</th>
+            <th>公里數</th>
+            <th>油資補助</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var emp in Model)
+        {
+            <tr>
+                <td>@emp.Emp_Information.Emp_Name</td>
+                <td>@emp.CheckInLocation</td>
+                <td>@emp.CheckInDateTime.Value.Date</td>
+                <td>@(Convert.ToInt32(@emp.Dis_Between_Previous))</td>
+                <td>@(Convert.ToInt32(@emp.Dis_Between_Previous)*5)</td>
+            </tr>
+        }
+    </tbody>
+</table>
+

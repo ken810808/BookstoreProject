@@ -1,0 +1,404 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <!--Bootstrap-->
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <!--CSS-->
+    <link href="~/Content/easy-redesign-style.css" rel="stylesheet" />
+    <!--舊版css-->
+    @*<link href="~/Content/easy-sidebar.css" rel="stylesheet" />*@
+    @*<link href="~/Content/WebSite.css" rel="stylesheet" />
+        <link href="~/Content/PagedList.css" rel="stylesheet" />
+        <link href="~/Content/buttons.css" rel="stylesheet" />
+        <link href="~/Content/main.css" rel="stylesheet" />*@
+    <!--font Awesome-->
+    <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+    <!--jQuery-->
+    <script src="~/Scripts/jquery-2.2.0.min.js"></script>
+    <script src="~/Scripts/modernizr.custom.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <!--動畫-->
+    <link href="~/Content/animate.easyre.css" rel="stylesheet" />
+    <script src="~/Scripts/wow.min.js"></script>
+    <script>
+		 new WOW().init();
+    </script>
+    <!--Menu-->
+    <script src="~/Scripts/metris.js"></script>
+    <script src="~/Scripts/metris-custom.js"></script>
+    <link href="~/Content/custom.css" rel="stylesheet" />
+    @*<script src="~/Scripts/plugins.js"></script>
+        <script src="~/Scripts/animatedModal.min.js"></script>
+        <script src="~/Scripts/main.js"></script>*@
+    <!-- 主菜單 -->
+    <script src="js/metisMenu.min.js"></script>
+    <script src="js/custom.js"></script>
+    <link href="~/Content/custom.css" rel="stylesheet">
+
+    <style>
+        #a {
+            color: black;
+        }
+
+        #back {
+            background: #1e5799;
+            background: -moz-linear-gradient(top, rgba(30,87,153,0) 0%, rgba(30,87,153,0.8) 15%, rgba(30,87,153,1) 19%, rgba(30,87,153,1) 20%, rgba(41,137,216,1) 50%, rgba(30,87,153,1) 80%, rgba(30,87,153,1) 81%, rgba(30,87,153,0.8) 85%, rgba(30,87,153,0) 100%);
+            background: -webkit-linear-gradient(top, rgba(30,87,153,0) 0%,rgba(30,87,153,0.8) 15%,rgba(30,87,153,1) 19%,rgba(30,87,153,1) 20%,rgba(41,137,216,1) 50%,rgba(30,87,153,1) 80%,rgba(30,87,153,1) 81%,rgba(30,87,153,0.8) 85%,rgba(30,87,153,0) 100%);
+            background: linear-gradient(to bottom, rgba(30,87,153,0) 0%,rgba(30,87,153,0.8) 15%,rgba(30,87,153,1) 19%,rgba(30,87,153,1) 20%,rgba(41,137,216,1) 50%,rgba(30,87,153,1) 80%,rgba(30,87,153,1) 81%,rgba(30,87,153,0.8) 85%,rgba(30,87,153,0) 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#001e5799', endColorstr='#001e5799',GradientType=0 );
+            height: 910px;
+        }
+
+        .action:hover {
+            font-size: 25px;
+        }
+    </style>
+
+</head>
+<body class="cbp-spmenu-push">
+    <div class="main-content">
+        <!--left-fixed -navigation-->
+        <div class=" sidebar" role="navigation">
+            <div class="navbar-collapse">
+                <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
+                    <ul class="nav" id="side-menu">
+                        <li>
+                            <span><img class="img-responsive" style="width:150px" height="80" src="~/Content/img/TroLogoWeb.jpg" margin-left="30px" /></span>
+                        </li>
+                        <li>
+                            <a href="#collapse1" @*data-toggle="collapse" data-parent="#accordion" class="aaa" id="a"*@><i class="fa fa-user nav_icon"></i>員工資料 <span class="nav-badge">3</span> <span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level collapse">
+                                <li>
+                                    <a href="grids.html"><i class="fa fa-check-square-o nav_icon">員工資料瀏覽</i></a>
+                                </li>
+                                <li>
+                                    <a href="media.html"><i class="fa fa-check-square-o nav_icon">新增員工</i></a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#collapse2"><i class="fa fa-map-marker nav_icon"></i> 打卡<span class="nav-badge">2</span><span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level collapse">
+                                <li>
+                                    <a href="general.html"><i class="fa fa-check-square-o nav_icon">地點管理</i></a>
+                                </li>
+                                <li>
+                                    <a href="general.html"><i class="fa fa-check-square-o nav_icon">打卡</i></a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#collapse3"><i class="fa fa-th-large nav_icon"></i> 請假 <span class="nav-badge">3</span><span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level collapse">
+                                <li>
+                                    <a href="grids.html"><i class="fa fa-check-square-o nav_icon">請假查詢</i></a>
+                                </li>
+                                <li>
+                                    <a href="typography.html"><i class="fa fa-check-square-o nav_icon">請假審核</i></a>
+                                </li>
+                                <li>
+                                    <a href="typography.html"><i class="fa fa-check-square-o nav_icon">申請請假</i></a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#collapse4"><i class="fa fa-envelope nav_icon"></i> 行程<span class="nav-badge">1</span><span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level collapse">
+                                <li>
+                                    <a href="#"><i class="fa fa-check-square-o nav_icon">排班</i></a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#collapse4"><i class="fa fa-table nav_icon"></i> 薪資 <span class="nav-badge">1</span><span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level collapse">
+                                <li>
+                                    <a href="#"><i class="fa fa-check-square-o nav_icon">查詢</i></a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-file-text-o nav_icon"></i> 權限<span class="nav-badge">1</span><span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level collapse">
+                                <li>
+                                    <a href="~/Admin/Authority"><i class="fa fa-check-square-o nav_icon">修改權限</i></a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="charts.html" class="chart-nav"><i class="fa fa-bar-chart nav_icon"></i> 翻譯 <span class="nav-badge-btm pull-right">new</span></a>
+                            <ul>
+                                <li>
+                                    <div id='MicrosoftTranslatorWidget' class='Dark' style='color:white;background-color:#555555'></div>
+                                    <script type='text/javascript'>setTimeout(function () { { var s = document.createElement('script'); s.type = 'text/javascript'; s.charset = 'UTF-8'; s.src = ((location && location.href && location.href.indexOf('https') == 0) ? 'https://ssl.microsofttranslator.com' : 'http://www.microsofttranslator.com') + '/ajax/v3/WidgetV3.ashx?siteData=ueOIGRSKkd965FeEGM5JtQ**&ctf=True&ui=true&settings=Manual&from='; var p = document.getElementsByTagName('head')[0] || document.documentElement; p.insertBefore(s, p.firstChild); } }, 0);</script>
+
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="charts.html" class="chart-nav"><i class="fa fa-bar-chart nav_icon"></i> 聊天室 <span class="nav-badge-btm pull-right">new</span></a>
+                        </li>
+                    </ul>
+                    <div class="clearfix"> </div>
+                </nav>
+            </div>
+        </div>
+        <!--left-fixed -navigation-->
+        <!-- header-starts -->
+        <div class="sticky-header header-section ">
+            <div class="header-left">
+                <!--Toggle Btn-->
+                <button id="showLeftPush"><i class="fa fa-bars"></i></button>
+                <!--Toggle Btn End-->
+                <!--logo -->
+                <div class="logo">
+                    <a href="index.html">
+                        <h1>工時管理打卡系統</h1>
+                        <span>蜂鳥書局</span>
+                    </a>
+                </div>
+                <!--//logo-->
+                <!--search-box-->
+                @*<div class="search-box">
+                        <form class="input">
+                            <input class="sb-search-input input__field--madoka" placeholder="Search..." type="search" id="input-31" />
+                            <label class="input__label" for="input-31">
+                                <svg class="graphic" width="100%" height="100%" viewBox="0 0 404 77" preserveAspectRatio="none">
+                                    <path d="m0,0l404,0l0,77l-404,0l0,-77z" />
+                                </svg>
+                            </label>
+                        </form>
+                    </div>*@<!--//end-search-box-->
+                <div class="clearfix"> </div>
+            </div>
+            <div class="header-right">
+                <div class="profile_details_left">
+                    <!--通知-->
+                    <ul class="nofitications-dropdown">
+                        <li class="dropdown head-dpdn">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-envelope"></i><span class="badge">3</span></a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <div class="notification_header">
+                                        <h3>您有三則訊息</h3>
+                                    </div>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <div class="user_img"><img src="images/1.png" alt=""></div>
+                                        <div class="notification_desc">
+                                            <p>安安您好</p>
+                                            <p><span>1 小時前</span></p>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </a>
+                                </li>
+                                <li class="odd">
+                                    <a href="#">
+                                        <div class="user_img"><img src="images/2.png" alt=""></div>
+                                        <div class="notification_desc">
+                                            <p>明天開會</p>
+                                            <p><span>32分鐘前</span></p>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <div class="user_img"><img src="images/3.png" alt=""></div>
+                                        <div class="notification_desc">
+                                            <p>工作分配細項</p>
+                                            <p><span>1 小時前</span></p>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <div class="notification_bottom">
+                                        <a href="#">查看所有</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown head-dpdn">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-bell"></i><span class="badge blue">3</span></a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <div class="notification_header">
+                                        <h3>您有三則通知</h3>
+                                    </div>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <div class="user_img"><img src="images/2.png" alt=""></div>
+                                        <div class="notification_desc">
+                                            <p>安安</p>
+                                            <p><span>1 小時前</span></p>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </a>
+                                </li>
+                                <li class="odd">
+                                    <a href="#">
+                                        <div class="user_img"><img src="images/1.png" alt=""></div>
+                                        <div class="notification_desc">
+                                            <p>早安 </p>
+                                            <p><span>35分鐘前</span></p>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <div class="user_img"><img src="images/3.png" alt=""></div>
+                                        <div class="notification_desc">
+                                            <p>午安 </p>
+                                            <p><span>40分鐘前</span></p>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <div class="notification_bottom">
+                                        <a href="#">所有通知</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown head-dpdn">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-tasks"></i><span class="badge blue1">15</span></a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <div class="notification_header">
+                                        <h3>您有8個任務</h3>
+                                    </div>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <div class="task-info">
+                                            <span class="task-desc">資料庫新增</span><span class="percentage">40%</span>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                        <div class="progress progress-striped active">
+                                            <div class="bar yellow" style="width:40%;"></div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <div class="task-info">
+                                            <span class="task-desc">Dashboard done</span><span class="percentage">90%</span>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                        <div class="progress progress-striped active">
+                                            <div class="bar green" style="width:90%;"></div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <div class="task-info">
+                                            <span class="task-desc">Mobile App</span><span class="percentage">33%</span>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                        <div class="progress progress-striped active">
+                                            <div class="bar red" style="width: 33%;"></div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <div class="task-info">
+                                            <span class="task-desc">Issues fixed</span><span class="percentage">80%</span>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                        <div class="progress progress-striped active">
+                                            <div class="bar  blue" style="width: 80%;"></div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <div class="notification_bottom">
+                                        <a href="#">所有任務</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <div class="clearfix"> </div>
+                </div>
+                <!--notification menu end -->
+                <div class="profile_details">
+                    <ul>
+                        <li class="dropdown profile_details_drop">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                <div class="profile_img">
+                                    <span class="prfil-img"><img src="images/a.png" alt=""> </span>
+                                    <div class="user-name">
+                                        <p>林先生</p>
+                                        <span>管理員</span>
+                                    </div>
+                                    <i class="fa fa-angle-down lnr"></i>
+                                    <i class="fa fa-angle-up lnr"></i>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </a>
+                            <ul class="dropdown-menu drp-mnu">
+                                <li> <a href="#"><i class="fa fa-cog"></i> 設定</a> </li>
+                                <li> <a href="#"><i class="fa fa-user"></i> 個人資料</a> </li>
+                                <li> <a href="#"><i class="fa fa-sign-out"></i> 登出</a> </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="clearfix"> </div>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+        <!-- //header-ends -->
+
+
+    </div>
+    <div>
+        @RenderBody()
+    </div>
+
+    @*<script src="js/bootstrap.min.js"></script>*@
+    <script>
+        //easy-sidebar-toggle-right
+        $('.easy-sidebar-toggle').click(function (e) {
+            e.preventDefault();
+            //$('body').toggleClass('toggled-right');
+            $('body').toggleClass('toggled');
+            //$('.navbar.easy-sidebar-right').removeClass('toggled-right');
+            $('.navbar.easy-sidebar').removeClass('toggled');
+        });
+    </script>
+    <!--Classie RWD-->
+    <script src="~/Scripts/classie.js"></script>
+    <script>
+			var menuLeft = document.getElementById( 'cbp-spmenu-s1' ),
+				showLeftPush = document.getElementById( 'showLeftPush' ),
+				body = document.body;
+
+			showLeftPush.onclick = function() {
+				classie.toggle( this, 'active' );
+				classie.toggle( body, 'cbp-spmenu-push-toright' );
+				classie.toggle( menuLeft, 'cbp-spmenu-open' );
+				disableOther( 'showLeftPush' );
+			};
+
+			function disableOther( button ) {
+				if( button !== 'showLeftPush' ) {
+					classie.toggle( showLeftPush, 'disabled' );
+				}
+			}
+    </script>
+    <!--Scrolling js-->
+    <script src="~/Scripts/jQuery-niceScroll.js"></script>
+    <script src="~/Scripts/jQueryScrollScript.js"></script>
+</body>
+</html>

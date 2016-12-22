@@ -1,0 +1,276 @@
+﻿@model IEnumerable<global::BookStore_Web_.Models.Location>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/EasyEmp.cshtml";
+}
+<script src="~/Scripts/Clockjs.js"></script>
+<link rel="stylesheet" media="all" href="~/Content/Clock.css">
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<link href="~/Content/buttons.css" rel="stylesheet" />
+<link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+<link href="~/Content/css.css" rel="stylesheet" />
+<link href="~/Content/animate.min.css" rel="stylesheet" />
+
+
+<style>
+    html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    #map {
+        height: 100%;
+    }
+
+    #punch {
+        height: 250px;
+        width: 250px;
+    }
+</style>
+
+
+
+<div class="col-md-5">
+    <div style="margin-bottom:20px">
+        <div class="wrap">
+            <span id="animationSandbox" style="display: block;" class="lightSpeedIn animated"><h1 class="site__title mega">工時打卡管理系統</h1></span>
+        </div>
+    </div>
+    <center style="margin-top:200px">
+        <!--放時鐘-->
+        <div class="container">
+            <div class="clock">
+                <div class="clk_hours"></div>
+                <div class="clk_days"></div>
+                <div class="clk_date"></div>
+            </div>
+
+            <canvas id="canvas" width="230" height="230">
+                您的瀏覽器沒有支援 canvas !
+            </canvas>
+            <div role="tabpanel" class="tabpanel">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation">
+                    </li>
+                    <li role="presentation" class="active">
+                    </li>
+                </ul>
+
+            </div>
+
+        </div>
+    </center>
+
+    <div>
+        <div class="col-md-12"><h2 id="divsucc" style="color:red;text-align:center;"></h2></div>
+        <br />
+        <div class="col-md-12" style="text-align:center">
+            <a class="button-3d">
+                <img src="~/Content/Captures/B.gif" id="punch" class="img-circle" style="width:200px;height:200px;border:solid 20px;" />
+            </a>
+        </div>
+    </div>
+</div>
+<div class="col-md-7">
+    <div class=" col-md-12">
+        <div class="col-md-10" id="map" style="height:700px;width:800px">
+        </div>
+    </div>
+
+    <div class="col-md-12" style="margin-top:20px">
+        <div class="col-md-4" style="margin-top:15px;">
+            <a class="button button-3d button-highlight button-pill button-large" id="NTU">台灣大學</a>
+
+        </div>
+        <div class="col-md-4" style="margin-top:15px;">
+            <a class="button button-3d button-highlight button-pill button-large" id="Taichung">中興大學</a>
+
+        </div>
+        <div class="col-md-4" style="margin-top:15px;">
+            <a class="button button-3d button-highlight button-pill button-large" id="Kou">中山大學</a>
+
+        </div>
+    </div>
+</div>
+
+
+<div id="1"></div>
+<script src="~/Scripts/jquery-2.2.0.min.js"></script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDKxBE29uoKIlnaBoB75O2Wwq3ZSORPGTA&signed_in=true&callback=initMap&libraries=places"></script>
+
+<script type="text/javascript">
+    var flag = true;
+    var map;
+    var marker;
+    var init_lat = 23.5000;
+    var init_lng = 121.0000;
+    var icons = '@Url.Content("~/Content/img/flag.png")';
+
+    //var icons = "/Content/img/flag.png";
+    function initialize() {
+        //Create initialize map   初始地圖
+        if (navigator.geolocation) {
+            map = new google.maps.Map(
+                document.getElementById("map"), {
+                    center: { lat: init_lat, lng: init_lng },
+                    zoom: 8,
+                    disableDefaultUI: true
+                }
+            );
+
+            marker = new google.maps.Marker({
+                position: { lat: init_lat, lng: init_lng },
+                map: map,
+                title: '初始位置',
+                draggable: true,
+                icon: icons
+            });
+            $('#lat').text(init_lat);
+            $('#lng').text(init_lng);
+        } else {
+            alert("瀏覽器不支援地打卡系統")  // do not support the geolocation
+        }
+
+    }
+    google.maps.event.addDomListener(window, 'load', initialize);
+
+    //The button can search your location 搜尋自己位置的Button
+
+    var Now_lat;
+    var Now_lng;
+
+
+    var startPos;
+    var geoSuccess = function (position) {
+        startPos = position;
+    };
+    navigator.geolocation.getCurrentPosition(geoSuccess);
+
+    //Location NTU 台大
+    $('#NTU').click(function () {
+        Now_lat = 25.016462523609935;
+        Now_lng = 121.54033785606691;
+        map = new google.maps.Map(
+             document.getElementById("map"),
+           {
+               center: { lat: Now_lat, lng: Now_lng },
+               zoom: 14,
+               disableDefaultUI: true
+           }
+           );
+        marker = new google.maps.Marker({
+            position: { lat: Now_lat, lng: Now_lng },
+            map: map,
+            draggable: true,
+            animation: google.maps.Animation.DROP,
+            title: '台大',
+            icon: icons
+        })
+        flag = false;
+    })
+
+
+    $('#Taichung').click(function () {
+        Now_lat = 24.12203030189395;
+        Now_lng = 120.67443495537111;
+        map = new google.maps.Map(
+             document.getElementById("map"),
+           {
+               center: { lat: Now_lat, lng: Now_lng },
+               zoom: 14,
+               disableDefaultUI: true
+           }
+           );
+        marker = new google.maps.Marker({
+            position: { lat: Now_lat, lng: Now_lng },
+            map: map,
+            draggable: true,
+            animation: google.maps.Animation.DROP,
+            title: '中興大學',
+            icon: icons
+        })
+        flag = false;
+    })
+
+
+    $('#Kou').click(function () {
+        Now_lat = 22.626438798917185;
+        Now_lng = 120.26592379356691;
+
+        map = new google.maps.Map(
+             document.getElementById("map"),
+           {
+               center: { lat: Now_lat, lng: Now_lng },
+               zoom: 14,
+               disableDefaultUI: true
+           }
+           );
+        marker = new google.maps.Marker({
+            position: { lat: Now_lat, lng: Now_lng },
+            map: map,
+            draggable: true,
+            animation: google.maps.Animation.DROP,
+            title: '中山大學',
+            icon: icons
+        })
+        flag = false;
+    })
+
+
+    $('#punch').click(function () {
+        var data = new Array();
+        if (flag == false) {
+            data[0] = Now_lat;
+            data[1] = Now_lng;
+            $.ajax({
+                type: 'POST',
+                url: "@Url.Action("punch_count","Employee")",
+                datatype: "json",
+                traditional: true,
+                data: { my_Location: data },
+                success: function (data2) {
+                    $('#divsucc').empty();
+                    $('#divsucc').prepend("您的位置:" + data2);
+                }
+            })
+        } else {
+            //if we do  not punch the demo button, we will search your location.
+            map = new google.maps.Map(
+      document.getElementById("map"),
+    {
+        center: { lat: startPos.coords.latitude, lng: startPos.coords.longitude },
+        zoom: 14,
+        disableDefaultUI: true
+    }
+    );
+            marker = new google.maps.Marker({
+                position: { lat: startPos.coords.latitude, lng: startPos.coords.longitude },
+                map: map,
+                draggable: true,
+                animation: google.maps.Animation.DROP,
+                title: '您的位置',
+                icon: icons
+            });
+            data[0] = startPos.coords.latitude;
+            data[1] = startPos.coords.longitude;
+
+            $.ajax({
+                type: 'POST',
+                url: "@Url.Action("punch_count","Employee")",
+                datatype: "json",
+                traditional: true,
+                data: { my_Location: data },
+                success: function (data2) {
+                    $('#divsucc').empty();
+                    $('#divsucc').prepend('打卡位置:' + data2);
+                    flag = true;
+                }
+            })
+
+        }
+
+    })
+
+
+</script>

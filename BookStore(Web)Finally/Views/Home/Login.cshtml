@@ -1,0 +1,102 @@
+﻿@model BookStore_Web_.Models.Emp_Information
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>會員登入</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link rel="shortcut icon" href="~/Content/img/favicon-20160129.ico" />
+    <style>
+        .site-logo {
+            text-align: center;
+        }
+
+        .col-md-3 control-label {
+            color: #FFFFF;
+        }
+
+        .colorgraph {
+            height: 7px;
+            border-top: 0;
+            background: #26a3e7;
+            border-radius: 5px;
+            background-image: -webkit-linear-gradient(left, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
+            background-image: -moz-linear-gradient(left, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
+            background-image: -o-linear-gradient(left, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
+            background-image: linear-gradient(to right, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
+        }
+
+        .form-signin {
+            max-width: 550px;
+            padding: 30px 38px 66px;
+            margin: 100px auto;
+            background-color: #26a3e7;
+            border: 3px rgba(0,0,0,0.1);
+            border-radius: 30px;
+        }
+
+        .form-signin-heading {
+            font-stretch: wider;
+            text-align: center;
+            margin-bottom: 30px;
+            font-family: "CenturyGothicStd","Century Gothic","ヒラギノ角ゴ Pro W3","Hiragino Kaku Gothic Pro","メイリオ",Meiryo,Sans-Serif;
+            color: #fcfd00;
+        }
+
+        .form-group {
+            font-family: "CenturyGothicStd","Century Gothic","ヒラギノ角ゴ Pro W3","Hiragino Kaku Gothic Pro","メイリオ",Meiryo,Sans-Serif;
+            color: #FFFFF;
+        }
+
+        .btn-block {
+            display: block;
+        }
+        .font {
+         font-size:25px;
+         margin:70px;
+         }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="wrapper">
+            @using (@Html.BeginForm("Index", "Home", FormMethod.Post, new { @class = "form-signin form-horizontal", enctype = "multipart/form-data" }))
+            {
+                <h1 id="site-logo" class="site-logo">
+                    <img src="~/Content/img/TroLogoWeb.jpg" height="118" width="111" />
+                </h1>
+                <h2 class="form-signin-heading">員工登入</h2>
+                <hr class="colorgraph" />
+                <br />
+                <div class="form-group">
+                @Html.LabelFor(p => p.EmployeeID, new {@class="col-md-3 control-label"})
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(p => p.EmployeeID, new { @class = "form-control" })
+                        @*@Html.HiddenFor(p=>p.EmployeeID)*@
+                    </div>
+                </div>
+                <div class="form-group">
+                @Html.LabelFor(p => p.Emp_Password, new { @class = "col-md-3 control-label" })
+                   <div class="col-md-9">
+                       @Html.TextBoxFor(p => p.Emp_Password, new { @class = "form-control",width="50" })
+                   </div>
+                </div>
+                <div>@ViewBag.message</div>
+                <div class="form-group">       
+                   <div >
+                       <input type="submit" value="登入" class="btn btn-success btn-block" />
+                       @Html.ActionLink("忘記密碼", "Forget", "Home", null, new { style = "color:red",@class="font" })
+                      @* @Html.ActionLink("新增帳號", "AddCount", "Home", null, new { style = "color:blue",@class="font"})*@
+                   </div>
+               </div>
+            }
+        </div>
+    </div>
+</body>
+</html>

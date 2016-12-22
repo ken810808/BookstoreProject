@@ -1,0 +1,219 @@
+﻿@model IEnumerable<global::BookStore_Web_.Models.Schedule>
+@{
+    ViewBag.Title = "Scheduletable";
+    Layout = "~/Views/Shared/Easy.cshtml";
+}
+<script src="~/Scripts/jquery-2.2.0.min.js"></script>
+<link href="~/Content/animate.css" rel="stylesheet" />
+<link href="~/Content/dashboard.css" rel="stylesheet" />
+
+<body>
+    <div class="wrap">
+        <span id="animationSandbox" style="display: block;" class="zoomIn animated"><h1 class="site__title mega">審核行程表</h1></span>
+    </div>
+
+
+
+    <div class="row">
+        <div class="col-md-2 ">
+            <div class="container">
+                <div id="ScheduleDetail" style="height:420px"></div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="container">
+                <div id="myScheduler"></div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script>
+        //var i = 0;
+        //$('body').on('load', function (e) {
+        //    e.stopPropagation();
+
+
+
+        //})
+        $(function () {
+            $('#myScheduler').load('@Url.Action("reload", "Admin", new { position = "monthView" })');
+        })
+        //要新增的變數都放在這邊
+        var Application_Reason="";
+        var S_hour = 0;
+        var S_min = 0;
+        var E_hour = 0;
+        var E_min = 0;
+        var LocationID = 1;
+        var ScheduleID;
+        var EmployeeID = @ViewBag.empid;
+        var check_ID = 1;
+        ////抓form裡的字串切割成只剩日期部分
+
+        //每當按下div裡面的內容就設定scheduleID
+
+
+        $(document).on('keyup', 'input[name="content"]', function (e) {
+            e.stopPropagation();
+            Application_Reason = e.target.value;
+        })
+
+        $(document).on('change','.T_hours', function (e) {
+            S_hour = e.target.value;
+        })
+        $(document).on('change', '.M_hours', function (e) {
+            S_min = e.target.value;
+        })
+        $(document).on('change', '.T_Ehours', function (e) {
+            E_hour = e.target.value;
+        })
+        $(document).on('change', '.M_Ehours', function (e) {
+            E_min = e.target.value;
+        })
+        $(document).on('change', '.l_sel', function (e) {
+
+            LocationID = e.target.value;
+
+        })
+
+
+        $(document).on('change', '.Status_sel', function (e) {
+
+            check_ID = e.target.value;
+
+        })
+
+
+        //按下Form裡面的Save按鍵
+        $(document).on('click', 'button:contains("Save")', function (e) {
+            var str = $('#schedulerEventRecorderForm label')[0].innerText;
+            var s = str.split(" ");
+            var day = s[2].split("開", 1);
+
+
+            //===========================================================================================================
+
+
+
+
+  
+            $.ajax({
+                url: "@Url.Action("Test", "Admin")",
+                data: {
+                    Application_Reason: Application_Reason, Month: s[1], Day: day[0], S_hour: S_hour, S_min: S_min, E_hour: E_hour, E_min: E_min,
+                    LocationID: LocationID, EmployeeID: EmployeeID, check_ID: check_ID
+                },
+                type: "POST",
+                success: function (data)
+                {
+                    if (data != "") {
+
+                        //儲存成功後會解除綁在document上面id=.scheduler-base-content的click事件
+                        //通常都是在load之前去解除事件，避免在重複註冊依次
+                        $(document).off('click', '.scheduler-base-content');
+                        $(document).off('click', '.scheduler-event-content');
+                        if($('button.active')[0].innerText=="Month"){
+                            $('#myScheduler').load('@Url.Action("reload", "Admin", new { position = "monthView" })');
+                        }
+                        else if($('button.active')[0].innerText=="Agenda"){
+                            $('#myScheduler').load('@Url.Action("reload", "Admin", new { position = "agendaView" })');
+                        }
+
+                    }//i=0;
+                },
+                async: true
+            });
+
+        })
+
+        //按下Form裡面的Edit按鍵
+        $(document).on('click', 'button:contains("Edit")', function (e) {
+            //因為一進畫面沒有Save一個新的沒有任何做變數不會存近來
+            Application_Reason=$('input[name="content"]').val();
+            S_hour = $('.T_hours').val();
+            S_min = $('.M_hours').val();
+            E_hour = $('.T_Ehours').val();
+            E_min = $('.M_Ehours').val();
+            LocationID = $('.l_sel').val();
+            check_ID = $('.Status_sel').val();
+            var R_empID=$('#Empid').val();
+
+            var str = $('#schedulerEventRecorderForm label')[0].innerText;
+            var s = str.split(" ");
+            var day = s[2].split("開", 1);
+            //把標點符號去掉
+            var R_day = day[0].split(",", 2);
+
+            //===========================================================================================================
+
+            ScheduleID=$('#scheduleid').val();
+            $.ajax({
+                url: "@Url.Action("ScheduleTableEdit", "Admin")",
+                data: { Application_Reason: Application_Reason, Month: s[1], Day: R_day[0], S_hour: S_hour, S_min: S_min, E_hour: E_hour, E_min: E_min, LocationID: LocationID, EmployeeID: R_empID, check_ID: check_ID,ScheduleID:ScheduleID },
+                type: "POST",
+                dataType: "json",
+                success: function (data)
+                {
+
+                    //通常都是在load之前去解除事件，避免在重複註冊依次
+                    $(document).off('click', '.scheduler-base-content');
+                    $(document).off('click', '.scheduler-event-content');
+
+                    //審核成功後會寄一封email給申請者
+                    if(data[0].Check_ID==2||data[0].Check_ID==3)
+                    {
+
+                        $.ajax({
+                            url:"../Admin/Email",
+                            data:{data:data},
+                            type:"POST",
+                            success:function(data){
+                            }
+                        })
+                    }
+                    if($('button.active')[0].innerText=="Month"){
+                        $('#myScheduler').load('@Url.Action("reload", "Admin", new { position = "monthView" })');
+                        refresh(Application_Reason);
+
+                    }
+                    else if($('button.active')[0].innerText=="Agenda"){
+                        $('#myScheduler').load('@Url.Action("reload", "Admin", new { position = "agendaView" })');
+                        refresh(Application_Reason);
+                    }
+                },
+                async: true,
+            });
+        })
+        function refresh(T_reason){
+            $.ajax({
+                url: '@Url.Action("Edit", "Admin")',
+                data: { SearchText: T_reason },
+                type: "POST",
+                dataType: "json",
+                async: true,
+                success: function (data) {
+                  
+
+
+                    //依權限狀態來關閉編輯功能
+                    @if(ViewBag.ocup_id==3)
+                    {
+                        <text>
+                    $('input[name="content"]').css('background-color', 'rgb(238, 238, 238)')
+                        $('.T_hours').css('background-color', 'rgb(238, 238, 238)')
+                        $('.M_hours').css('background-color', 'rgb(238, 238, 238)')
+                        $('.T_Ehours').css('background-color', 'rgb(238, 238, 238)')
+                        $('.M_Ehours').css('background-color', 'rgb(238, 238, 238)')
+                        $('.l_sel').css('background-color', 'rgb(238, 238, 238)')
+                        $('.Status_sel').css('background-color', 'rgb(238, 238, 238)')
+                        </text>
+                    };
+
+                    $('#ScheduleDetail').load('@Url.Action("ScheduleDetail", "Admin")', { abc: data });
+                }
+            });
+        }
+    </script>
+</body>

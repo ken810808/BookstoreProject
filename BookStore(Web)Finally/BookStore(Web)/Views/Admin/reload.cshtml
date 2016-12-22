@@ -1,0 +1,572 @@
+﻿@model IEnumerable<global::BookStore_Web_.Models.Schedule>
+
+@*<link href="~/Content/AUi.bootstrap.min.css" rel="stylesheet" />*@
+<link href="~/Content/Aui.css" rel="stylesheet" />
+<style>
+    #yui_patched_v3_18_1_1_1455188339993_6081 {
+        visibility: hidden;
+    }
+
+    .success {
+        color: #DC143C;
+        background-color: #FFB6C1,;
+    }
+
+    .fail {
+        color: #008000;
+        background-color: #50C878;
+    }
+
+    div.scheduler-view-agenda-event-color {
+        height: 20px;
+        left: 8px;
+        top: 12px;
+        width: 20px;
+    }
+</style>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/aui-min.js"></script>
+
+<script>
+
+
+    //放從資料庫抓資料放到日曆裡
+    YUI().use(
+    'aui-scheduler',
+    function (Y) {
+        var events = [];
+        //在RAZOR語法裡加入javascript <text></text>
+        @foreach(var xx in Model)
+           {
+               switch (xx.Check_ID)
+               {
+                   case 1:
+                       {
+                       <text>
+        events.push({
+            content: '@xx.Application_Reason',
+            startDate: new Date('@(xx.ScheduleDateTime.Year)', '@(xx.ScheduleDateTime.Month)', '@(xx.ScheduleDateTime.Day)', '@(xx.ScheduleDateTime.Hour)', '@(xx.ScheduleDateTime.Minute)'),
+            reminder: true,
+            endDate: new Date('@xx.Application_DateTime.Value.Year', '@xx.Application_DateTime.Value.Month', '@xx.Application_DateTime.Value.Day', '@xx.Application_DateTime.Value.Hour', '@xx.Application_DateTime.Value.Minute'),
+        })
+        </text>
+                       break;
+                       }
+                   case 2:
+                       {
+                       <text>
+        events.push({
+            color: '#228B22',
+            content: '@xx.Application_Reason',
+            startDate: new Date('@(xx.ScheduleDateTime.Year)', '@(xx.ScheduleDateTime.Month)', '@(xx.ScheduleDateTime.Day)', '@(xx.ScheduleDateTime.Hour)', '@(xx.ScheduleDateTime.Minute)'),
+            reminder: true,
+            endDate: new Date('@xx.Application_DateTime.Value.Year', '@xx.Application_DateTime.Value.Month', '@xx.Application_DateTime.Value.Day', '@xx.Application_DateTime.Value.Hour', '@xx.Application_DateTime.Value.Minute'),
+        })
+        </text>
+                           break;
+                       }
+                   case 3:
+                       {
+                       <text>
+        events.push({
+            color: '#FF0000',
+            content: '@xx.Application_Reason',
+            startDate: new Date('@(xx.ScheduleDateTime.Year)', '@(xx.ScheduleDateTime.Month)', '@(xx.ScheduleDateTime.Day)', '@(xx.ScheduleDateTime.Hour)', '@(xx.ScheduleDateTime.Minute)'),
+            reminder: true,
+            endDate: new Date('@xx.Application_DateTime.Value.Year', '@xx.Application_DateTime.Value.Month', '@xx.Application_DateTime.Value.Day', '@xx.Application_DateTime.Value.Hour', '@xx.Application_DateTime.Value.Minute'),
+        })
+        </text>
+                           break;
+                       }
+                   default:
+                       {
+
+                           break;
+                       }
+
+               }
+
+           }
+        var agendaView = new Y.SchedulerAgendaView();
+        var dayView = new Y.SchedulerDayView();
+        var eventRecorder = new Y.SchedulerEventRecorder();
+        var monthView = new Y.SchedulerMonthView();
+        var weekView = new Y.SchedulerWeekView();
+        new Y.Scheduler(
+          {
+              @if (ViewBag.position == "monthView")
+              {
+               <text>
+              activeView: monthView,
+              </text>
+              }
+              else if (ViewBag.position == "agendaView")
+              {
+                <text>
+              activeView: agendaView,
+              </text>
+              }
+
+              boundingBox: '#myScheduler',
+              date: new Date(2016, 2, 4),
+              eventRecorder: eventRecorder,
+              items: events,
+              render: true,
+              views: [dayView, weekView, monthView, agendaView]
+          });
+
+    });
+
+    //把所有讀出來的資料做審核狀態的編輯
+    // 按下每個選項裡面的div(外面)
+
+
+    //新增資料
+    //當按下任何一個空格增加form裡面有時跟分
+    $(document).on("click", ".scheduler-base-content", function abc(e) {
+        //時間開始
+        //時
+        var T_hours = $("<select></select>");
+        T_hours.addClass("T_hours");
+        for (var i = 0, max = 23; i <= max; i++) {
+            var s = $("<option></option>").text(i);
+            T_hours.append(s);
+            T_hours.on("click", function (e) {
+                //使select可以停止氣泡事件stopPropagation
+                e.stopPropagation();
+            })
+        }
+        //分
+        var M_hours = $("<select></select>");
+        M_hours.addClass('M_hours');
+        for (var i = 0, max = 59; i <= max; i++) {
+            var s = $("<option></option>").text(i);
+            M_hours.append(s);
+            M_hours.on("click", function (e) {
+                //使select可以停止氣泡事件stopPropagation
+                e.stopPropagation();
+            })
+        }
+        //時間結束
+        //時
+        var T_Ehours = $("<select></select>");
+        T_Ehours.addClass("T_Ehours");
+        for (var i = 0, max = 23; i <= max; i++) {
+            var s = $("<option></option>").text(i);
+            T_Ehours.append(s);
+            T_Ehours.on("click", function (e) {
+                //使select可以停止氣泡事件stopPropagation
+                e.stopPropagation();
+            })
+        }
+        //分
+        var M_Ehours = $("<select></select>");
+        M_Ehours.addClass('M_Ehours');
+        for (var i = 0, max = 59; i <= max; i++) {
+            var s = $("<option></option>").text(i);
+            M_Ehours.append(s);
+            M_Ehours.on("click", function (e) {
+                //使select可以停止氣泡事件stopPropagation
+                e.stopPropagation();
+            })
+        }
+        //新增地點
+        //在@@url.action("XXX")裡面發生字元常數太多 解決:使用Razor裡面的要跟外面用一樣的引號
+        var l_sel = $('<select></select>');
+        l_sel.addClass("l_sel");
+        //停止氣泡事件
+        l_sel.on('click', function (e) { e.stopPropagation(); })
+        $.getJSON("@Url.Action("Location","Admin")", {}, function (data) {
+            //for (var x in data) {
+            //    //var opt = $('<option><option>').append(data[x].Location_Name);
+            //    var opt = $('<option><option>').text(data[x].Location_Name);
+            //    //opt.val(data[x].LocationID);
+            //    l_sel.append(opt);
+            //}
+            //狀況:原本使用for讀取資料，不過都會讀到兩分，所以最後使用老師的範例方法$.each成功 ToAsk....
+            $.each(data, function (i, data) {
+                var opt = $('<option></option>').val(data.LocationID).text(data.Location_Name);
+                l_sel.append(opt);
+            });
+        })
+        //新增審核狀態
+        var Status_sel = $('<select></select>');
+        Status_sel.addClass("Status_sel");
+        //停止氣泡事件
+        Status_sel.on('click', function (e) { e.stopPropagation(); })
+        $.getJSON("@Url.Action("Status","Admin")", {}, function (data) {
+            $.each(data, function (i, data) {
+                var opt = $('<option></option>').val(data.StatusID).text(data.StatusName);
+                Status_sel.append(opt);
+            });
+
+        })
+
+
+
+        //清空標準線<div></div>之後的所有標籤，使重複按時不會再產生
+        $('#schedulerEventRecorderForm label>div').nextAll().remove();
+        //把開始的分跟秒加入
+        $('#schedulerEventRecorderForm label:eq(0)').append("<div></div>", "<label>開始</label>", T_hours, "<label>時</label> ", M_hours, "<label>分</label>");
+        ////把結束的分跟秒加入
+        $('#schedulerEventRecorderForm label:eq(0)').append("<br/><label>結束</label>", T_Ehours, "<label>時</label> ", M_Ehours, "<label>分</label>")
+        //把地點加入
+        $('#schedulerEventRecorderForm label:eq(0)').append("<br/><label>地點<label>", l_sel);
+        //把狀態加入
+        $('#schedulerEventRecorderForm label:eq(0)').append("<br/><label>審核狀態<label>", Status_sel);
+
+
+        @if(ViewBag.ocup_id==3)
+        {
+            <text>
+        $('.Status_sel').attr('disabled', true).css('background-color', 'rgb(238, 238, 238)')
+        </text>
+        };
+
+
+    })
+    //按下每個選項裡面的div(外面)
+    //$(document).on('click', '.scheduler-event-reminder', function (e) {
+    //    $('button:contains("Delete")').remove();
+    //    CreateElement();
+    //    $.ajax({
+    //        url: "/Admin/Edit",
+    //        data: { SearchText: e.target.innerText },
+    //        type: "POST",
+    //        async: true
+    //    });
+
+    //})
+
+    //編輯功能
+    //按下每個選項裡面的div(裡面)
+    $(document).on('click', '.scheduler-event-content', function (e) {
+
+        //不需要Delete功能，所以當按下每個選項後自動把刪除按鈕給取消
+        $('button:contains("Delete")').remove();
+        $('button:contains("Save")').remove();
+        //把Edit加入到按鍵裡面
+        $("button:contains('Edit')").remove();
+        var editbutton = $('<button type="button" class="btn btn-default btn-default-content yui3-widget yui3-btn yui3-btn-content yui3-btn-focused" id="yui_patched_v3_18_1_1_1456214821616_1703" role="button">Edit</button>');
+        $($('button:contains("Cancel")')[0]).before(editbutton);
+
+        e.stopPropagation();
+        CreateElement();
+        ///~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~研究超久的傳資料問題，原因為關聯屬性
+        @*$.getJSON("@Url.Action("Edit", "Admin")", {}, function (data) {
+
+            //for (var x in data) {
+            //    //var opt = $('<option><option>').append(data[x].Location_Name);
+            //    var opt = $('<option><option>').text(data[x].Location_Name);
+            //    //opt.val(data[x].LocationID);
+            //    l_sel.append(opt);
+            //}
+            //狀況:原本使用for讀取資料，不過都會讀到兩分，所以最後使用老師的範例方法$.each成功 ToAsk....
+            //$.each(data, function (i, data) {
+            //    var opt = $('<option></option>').val(data.LocationID).text(data.Location_Name);
+            //    l_sel.append(opt);
+            //});
+        })*@
+        @*$.getJSON('@Url.Action("Edit", "Admin")', {}, function (data) {
+            alert(data);
+            //$.each(data, function (i, data) {
+            //});
+        })*@
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        //標籤Ctrl+K,K 全部取消Ctrl+K,L
+        //移動標籤Ctrl+K,P
+        //設定區間 Ctrl+M,H 取消區間Ctrl+M,Us
+        //利用名字去抓資料庫的資料
+        $.ajax({
+            url: '@Url.Action("Edit", "Admin")',
+            data: { SearchText: e.target.innerText },
+            type: "POST",
+            dataType: "json",
+            async: true,
+            success: function (data) {
+            
+
+                var StarTime_H = data[0].ScheduleDateTimehour;
+                var StarTime_M = data[0].ScheduleDateTimeMinute;
+                var EndTime_H = data[0].Application_DateTimehour;
+                var EndTime_M = data[0].Application_DateTimeMinute;
+                var LocationID = data[0].LocationID;
+                var scheduleID = data[0].ScheduleID;
+                var Emp_ID = data[0].EmployeeID;
+                var state = data[0].Check_ID;
+
+                $('.T_hours')[0].selectedIndex = StarTime_H;
+                $('.M_hours')[0].selectedIndex = StarTime_M;
+                $('.T_Ehours')[0].selectedIndex = EndTime_H;
+                $('.M_Ehours')[0].selectedIndex = EndTime_M;
+
+                var locationSelectIndex = 0;
+                var sel = $('.l_sel');
+
+                for (i = 0, max = sel[0].length; i < max; i++) {
+                    if (sel[0][i].value == LocationID) {
+                        locationSelectIndex = i;
+                        break;
+                    }
+                }
+
+                $('.l_sel')[0].selectedIndex = locationSelectIndex;
+                $('#scheduleid').val(scheduleID);
+                $('#Empid').val(Emp_ID);
+                switch (state) {
+                    case 1:
+                        $('.Status_sel')[0].selectedIndex = 0;
+                        break;
+                    case 2:
+                        $('.Status_sel')[0].selectedIndex = 1;
+                        break;
+                    case 3:
+                        $('.Status_sel')[0].selectedIndex = 2;
+                        break;
+                    default:
+                        break;
+
+                }
+
+
+                //依權限狀態來關閉編輯功能
+                @if(ViewBag.ocup_id==3)
+                    {
+                    <text>
+                $('input[name="content"]').attr('disabled', true).css('background-color', 'rgb(238, 238, 238)')
+                $('.T_hours').attr('disabled', true).css('background-color', 'rgb(238, 238, 238)')
+                $('.M_hours').attr('disabled', true).css('background-color', 'rgb(238, 238, 238)')
+                $('.T_Ehours').attr('disabled', true).css('background-color', 'rgb(238, 238, 238)')
+                $('.M_Ehours').attr('disabled', true).css('background-color', 'rgb(238, 238, 238)')
+                $('.l_sel').attr('disabled', true).css('background-color', 'rgb(238, 238, 238)')
+                $('.Status_sel').attr('disabled', true).css('background-color', 'rgb(238, 238, 238)')
+                </text>
+                    };
+
+                $('#ScheduleDetail').load('@Url.Action("ScheduleDetail", "Admin")', { abc: data });
+            }
+        });
+
+        //移動事件
+        //$(document).on('mousemove', 'button:contains("Save")', function (e) {
+
+        //    e.target.innerText = "Edit";
+        //    $(document).unbind(e);
+        //})
+
+
+
+        //編輯代續.....
+        //本來想呼叫ajax後設定viewbag的資料，然後底下再呼叫，結果發現不行 解決:原因為viewbag、viewdata這類都是呼叫當頁(這裡是reload)設定，沒辦法中途在設定
+        //除非我是呼叫另外一個partialview然後在那一個裡面設定
+
+
+
+        //外面用@@{}包裡面可以用''or""or<text></text>來寫javascript OR HTML
+        @*@{ViewBag.SearchText="e.target.innerText";}
+        @{string search = ViewBag.SearchText;}*@
+
+        
+
+
+        //不重複登記事件，所以每當結束後會先取消事件
+        //$(this).unbind(e);
+    })
+
+
+
+
+
+    //放入函式裡,使按下編輯選項後能先製造出控制向才去讀值,而不是倒過來
+    function CreateElement() {
+        //新增資料
+        //當按下任何一個空格增加form裡面有時跟分
+
+        
+        //時間開始
+        //時
+        var T_hours = $("<select></select>");
+        T_hours.addClass("T_hours");
+        for (var i = 0, max = 23; i <= max; i++) {
+            var s = $("<option></option>").text(i);
+            T_hours.append(s);
+            T_hours.on("click", function (e) {
+                //使select可以停止氣泡事件stopPropagation
+                e.stopPropagation();
+            })
+        }
+        //分
+        var M_hours = $("<select></select>");
+        M_hours.addClass('M_hours');
+        for (var i = 0, max = 59; i <= max; i++) {
+            var s = $("<option></option>").text(i);
+            M_hours.append(s);
+            M_hours.on("click", function (e) {
+                //使select可以停止氣泡事件stopPropagation
+                e.stopPropagation();
+            })
+        }
+        //時間結束
+        //時
+        var T_Ehours = $("<select></select>");
+        T_Ehours.addClass("T_Ehours");
+        for (var i = 0, max = 23; i <= max; i++) {
+            var s = $("<option></option>").text(i);
+            T_Ehours.append(s);
+            T_Ehours.on("click", function (e) {
+                //使select可以停止氣泡事件stopPropagation
+                e.stopPropagation();
+            })
+        }
+        //分
+        var M_Ehours = $("<select></select>");
+        M_Ehours.addClass('M_Ehours');
+        for (var i = 0, max = 59; i <= max; i++) {
+            var s = $("<option></option>").text(i);
+            M_Ehours.append(s);
+            M_Ehours.on("click", function (e) {
+                //使select可以停止氣泡事件stopPropagation
+                e.stopPropagation();
+            })
+        }
+        //新增地點
+        //在@@url.action("XXX")裡面發生字元常數太多 解決:使用Razor裡面的要跟外面用一樣的引號
+        var l_sel = $('<select></select>');
+        l_sel.addClass("l_sel");
+        //停止氣泡事件click myScheduler
+        //l_sel.on('click', function (e) { e.stopPropagation(); })
+
+
+        $.getJSON("@Url.Action("Location", "Admin")", {}, function (data) {
+            //for (var x in data) {
+            //    //var opt = $('<option><option>').append(data[x].Location_Name);
+            //    var opt = $('<option><option>').text(data[x].Location_Name);
+            //    //opt.val(data[x].LocationID);
+            //    l_sel.append(opt);
+            //}
+            //狀況:原本使用for讀取資料，不過都會讀到兩分，所以最後使用老師的範例方法$.each成功 ToAsk....
+            $.each(data, function (i, data) {
+                var opt = $('<option></option>').val(data.LocationID).text(data.Location_Name);
+                l_sel.append(opt);
+            });
+        })
+        //新增審核狀態
+        var Status_sel = $('<select></select>');
+        Status_sel.addClass("Status_sel");
+        //停止氣泡事件
+        Status_sel.on('click', function (e) { e.stopPropagation(); })
+        $.getJSON("@Url.Action("Status", "Admin")", {}, function (data) {
+            $.each(data, function (i, data) {
+                var opt = $('<option></option>').val(data.StatusID).text(data.StatusName);
+                Status_sel.append(opt);
+            });
+
+        })
+
+
+
+        //清空標準線<div></div>之後的所有標籤，使重複按時不會再產生
+        $('#schedulerEventRecorderForm label>div').nextAll().remove();
+        //把開始的分跟秒加入
+        $('#schedulerEventRecorderForm label:eq(0)').append("<div></div>", "<label>開始</label>", T_hours, "<label>時</label> ", M_hours, "<label>分</label>");
+        ////把結束的分跟秒加入
+        $('#schedulerEventRecorderForm label:eq(0)').append("<br/><label>結束</label>", T_Ehours, "<label>時</label> ", M_Ehours, "<label>分</label>")
+        //把地點加入
+        $('#schedulerEventRecorderForm label:eq(0)').append("<br/><label>地點<label>", l_sel);
+        //把狀態加入
+        $('#schedulerEventRecorderForm label:eq(0)').append("<br/><label>審核狀態<label>", Status_sel);
+        //加一個隱藏欄位藏ScheduleID
+        $('#schedulerEventRecorderForm label:eq(0)').append("<input type='hidden' id='scheduleid'>");
+        //加一個隱藏欄位藏EmpID
+        $('#schedulerEventRecorderForm label:eq(0)').append("<input type='hidden' id='Empid'>");
+
+
+    }
+
+
+
+    $(document).on('click', '.scheduler-view-agenda-event', function (e) {
+        e.stopPropagation();
+        $('button:contains("Delete")').remove();
+        $('button:contains("Save")').remove();
+        //把Edit加入到按鍵裡面
+        $("button:contains('Edit')").remove();
+        var editbutton = $('<button type="button" class="btn btn-default btn-default-content yui3-widget yui3-btn yui3-btn-content yui3-btn-focused" id="yui_patched_v3_18_1_1_1456214821616_1703" role="button">Edit</button>');
+        $($('button:contains("Cancel")')[0]).before(editbutton);
+        CreateElement();
+        //利用名字去抓資料庫的資料
+        $.ajax({
+            url: '@Url.Action("Edit","Admin")',
+            data: { SearchText: e.target.children[1].innerText },
+            type: "POST",
+            dataType: "json",
+            async: true,
+            success: function (data) {
+         
+
+                var StarTime_H = data[0].ScheduleDateTimehour;
+                var StarTime_M = data[0].ScheduleDateTimeMinute;
+                var EndTime_H = data[0].Application_DateTimehour;
+                var EndTime_M = data[0].Application_DateTimeMinute;
+                var LocationID = data[0].LocationID;
+                var scheduleID = data[0].ScheduleID;
+                var Emp_ID = data[0].EmployeeID;
+                var state = data[0].Check_ID;
+
+
+                $('.T_hours')[0].selectedIndex = StarTime_H;
+                $('.M_hours')[0].selectedIndex = StarTime_M;
+                $('.T_Ehours')[0].selectedIndex = EndTime_H;
+                $('.M_Ehours')[0].selectedIndex = EndTime_M;
+
+                var locationSelectIndex = 0;
+                var sel = $('.l_sel');
+
+                for (i = 0, max = sel[0].length; i < max; i++) {
+                    if (sel[0][i].value == LocationID) {
+                        locationSelectIndex = i;
+                        break;
+                    }
+                }
+
+                $('.l_sel')[0].selectedIndex = locationSelectIndex;
+                $('#scheduleid').val(scheduleID);
+                $('#Empid').val(Emp_ID);
+                switch (state) {
+                    case 1:
+                        $('.Status_sel')[0].selectedIndex = 0;
+                        break;
+                    case 2:
+                        $('.Status_sel')[0].selectedIndex = 1;
+                        break;
+                    case 3:
+                        $('.Status_sel')[0].selectedIndex = 2;
+                        break;
+                    default:
+                        break;
+
+                }
+
+
+                //依權限狀態來關閉編輯功能
+                @if(ViewBag.ocup_id==3)
+                    {
+                        <text>
+                $('input[name="content"]').attr('disabled', true).css('background-color', 'rgb(238, 238, 238)')
+                $('.T_hours').attr('disabled', true).css('background-color', 'rgb(238, 238, 238)')
+                $('.M_hours').attr('disabled', true).css('background-color', 'rgb(238, 238, 238)')
+                $('.T_Ehours').attr('disabled', true).css('background-color', 'rgb(238, 238, 238)')
+                $('.M_Ehours').attr('disabled', true).css('background-color', 'rgb(238, 238, 238)')
+                $('.l_sel').attr('disabled', true).css('background-color', 'rgb(238, 238, 238)')
+                $('.Status_sel').attr('disabled', true).css('background-color', 'rgb(238, 238, 238)')
+                </text>
+                    };
+                $('#ScheduleDetail').load('@Url.Action("ScheduleDetail", "Admin")', { abc: data });
+
+            }
+        });
+
+
+    })
+
+</script>     

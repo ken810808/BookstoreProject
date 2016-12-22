@@ -1,0 +1,229 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/easy-sidebar.css" rel="stylesheet" />
+    <link href="~/Content/WebSite.css" rel="stylesheet" />
+    <link href="~/Content/PagedList.css" rel="stylesheet" />
+    <link href="~/Content/buttons.css" rel="stylesheet" />
+    <link href="~/Content/jquery.selectBox.css" rel="stylesheet" />
+    <link href="~/Content/datetimepicker/jquery.datetimepicker.css" rel="stylesheet" />
+    <link href="~/Content/colorbox.css" rel="stylesheet" />
+
+    <script src="~/Scripts/jquery-2.2.0.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/jquery.selectBox.min.js"></script>
+    <script src="~/Scripts/datetimepicker/jquery.datetimepicker.full.min.js"></script>
+    <script src="~/Scripts/datetimepicker/jquery.datetimepicker.min.js"></script>
+    <script src="~/Scripts/jquery.colorbox-min.js"></script>
+
+    <style>
+        #a {
+            color: black;
+        }
+
+        #back {
+            background: #1e5799;
+            background: -moz-linear-gradient(top, rgba(30,87,153,0) 0%, rgba(30,87,153,0.8) 15%, rgba(30,87,153,1) 19%, rgba(30,87,153,1) 20%, rgba(41,137,216,1) 50%, rgba(30,87,153,1) 80%, rgba(30,87,153,1) 81%, rgba(30,87,153,0.8) 85%, rgba(30,87,153,0) 100%);
+            background: -webkit-linear-gradient(top, rgba(30,87,153,0) 0%,rgba(30,87,153,0.8) 15%,rgba(30,87,153,1) 19%,rgba(30,87,153,1) 20%,rgba(41,137,216,1) 50%,rgba(30,87,153,1) 80%,rgba(30,87,153,1) 81%,rgba(30,87,153,0.8) 85%,rgba(30,87,153,0) 100%);
+            background: linear-gradient(to bottom, rgba(30,87,153,0) 0%,rgba(30,87,153,0.8) 15%,rgba(30,87,153,1) 19%,rgba(30,87,153,1) 20%,rgba(41,137,216,1) 50%,rgba(30,87,153,1) 80%,rgba(30,87,153,1) 81%,rgba(30,87,153,0.8) 85%,rgba(30,87,153,0) 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#001e5799', endColorstr='#001e5799',GradientType=0 );
+            height: 840px;
+        }
+
+        .action:hover {
+            font-size: 25px;
+        }
+    </style>
+</head>
+<body>
+
+
+
+    <nav class="navbar navbar-default easy-sidebar" id="back">
+        <div class="container-fluid">
+            <div class="navbar-header" style="margin-bottom:20px">
+                <span><img class="img-circle" style="width:250px" src="~/Content/img/TroLogoWeb.jpg" /></span>
+            </div>
+
+            <div class="collapse navbar-collapse" id="all" style="margin-top:10px;">
+
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse1" class="aaa" id="a">員工資料 </a>
+                        </h4>
+                    </div>
+                    <div id="collapse1" class="panel-collapse collapse ">
+                        <ul>
+                            <li>@Html.ActionLink("個人基本資料", "empbrowse", "Admin", null, new { style = "color:black", @class = "action" })</li>
+                            <li>@Html.ActionLink("員工資料瀏覽", "Browse", "Admin", null, new { style = "color:black", @class = "action" })</li>
+                            <li>@Html.ActionLink("員工新增", "EmpCreate", "Admin", null, new { style = "color:black", @class = "action" })</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse2" id="a">
+                                打卡
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapse2" class="panel-collapse collapse ">
+                        <ul>
+                            <li>@Html.ActionLink("打卡", "Index", "Admin", null, new { style = "color:black", @class = "action" })</li>
+                            <li>@Html.ActionLink("地點管理", "PunchBrowse", "Admin", null, new { style = "color:black", @class = "action" })</li>
+                            <li>@Html.ActionLink("打卡紀錄", "Punchdetail", "Admin", null, new { style = "color:black", @class = "action" })</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse3" id="a">請假</a>
+                        </h4>
+                    </div>
+                    <div id="collapse3" class="panel-collapse collapse ">
+                        <ul>
+                            <li>@Html.ActionLink("審核狀態", "AbsentBrowse", "Admin", null, new { style = "color:black", @class = "action" })</li>
+                            <li>@Html.ActionLink("請假申請", "AbsentCreate", "Admin", null, new { style = "color:black", @class = "action" })</li>
+                            <li>@Html.ActionLink("審核假單", "AbsentCheck", "Admin", null, new { style = "color:black", @class = "action" })</li>
+                            <li><a data-toggle="modal" data-target="#myModal">網管功能</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse4" id="a">排班</a>
+                        </h4>
+                    </div>
+                    <div id="collapse4" class="panel-collapse collapse ">
+                        <ul>
+                            <li>@Html.ActionLink("地點審核", "Scheduletable", "Admin", null, new { style = "color:black", @class = "action" })</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse5" id="a">薪資</a>
+                        </h4>
+                    </div>
+                    <div id="collapse5" class="panel-collapse collapse ">
+                        <ul>
+                            <li>@Html.ActionLink("油資補助查詢", "petrol", "Admin", null, new { style = "color:black", @class = "action" })</li>
+                            <li>@Html.ActionLink("薪資查詢", "reimbursment", "Admin", null, new { style = "color:black", @class = "action" })</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse6" id="a">權限 </a>
+                        </h4>
+                    </div>
+                    <div id="collapse6" class="panel-collapse collapse ">
+                        <ul>
+                            <li>@Html.ActionLink("權限設定", "Authority", "Admin", null, new { style = "color:black", @class = "action" })</li>
+                        </ul>
+                    </div>
+
+                </div>
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse7" id="a">階層架構圖 </a>
+                        </h4>
+                    </div>
+                    <div id="collapse7" class="panel-collapse collapse ">
+                        <ul>
+                            <li>@Html.ActionLink("員工階層圖", "company", "Admin", null, new { style = "color:black", @class = "action" })</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse8" id="a">翻譯 </a>
+                        </h4>
+                    </div>
+                    <div id="collapse8" class="panel-collapse collapse ">
+                        <ul>
+                            <div id='MicrosoftTranslatorWidget' class='Dark' style='color:white;background-color:#555555'></div>
+                            <script type='text/javascript'>setTimeout(function () { { var s = document.createElement('script'); s.type = 'text/javascript'; s.charset = 'UTF-8'; s.src = ((location && location.href && location.href.indexOf('https') == 0) ? 'https://ssl.microsofttranslator.com' : 'http://www.microsofttranslator.com') + '/ajax/v3/WidgetV3.ashx?siteData=ueOIGRSKkd965FeEGM5JtQ**&ctf=True&ui=true&settings=Manual&from='; var p = document.getElementsByTagName('head')[0] || document.documentElement; p.insertBefore(s, p.firstChild); } }, 0);</script>
+                        </ul>
+                    </div>
+                </div>
+                <div style="margin-left:40px">
+                    <h4> @Session["name"]    @Html.ActionLink("登出", "Login", "Home", null, new { style = "color:black;font-size:20px", @class = "action" })</h4>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    @*<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>*@
+                    <h4 class="modal-title" id="myModalLabel">身分驗證</h4>
+                </div>
+                <div class="modal-body">
+                    @using (Html.BeginForm("validIT", "Admin", FormMethod.Post, new { @class = "form-horizontal", encType = "multipart/form-data" }))
+                    {
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">員工編號</label>
+                            <div class="col-md-9">
+                                <input type="text" placeholder="員工編號" name="ID" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">員工密碼</label>
+                            <div class="col-md-9">
+                                <input type="text" name="password" placeholder="輸入密碼" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-offset-3 col-md-9">
+                                <input type="submit" value="送出" />
+                            </div>
+                        </div>
+                    }
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="container" style="margin-left:0px;padding-bottom:15px;padding-top:15px">
+            <button class="btn easy-sidebar-toggle glyphicon glyphicon-th-list" style="background-color: #2494FF;"><br /><span>工時管理打卡系統</span></button>
+        </div>
+        @*<script src="js/bootstrap.min.js"></script>*@
+        <script>
+            //easy-sidebar-toggle-right
+            $('.easy-sidebar-toggle').click(function (e) {
+                e.preventDefault();
+                //$('body').toggleClass('toggled-right');
+                $('body').toggleClass('toggled');
+                //$('.navbar.easy-sidebar-right').removeClass('toggled-right');
+                $('.navbar.easy-sidebar').removeClass('toggled');
+            });
+        </script>
+    </div>
+    <div>
+
+        @RenderBody()
+
+    </div>
+    <script>
+        $(".group1").colorbox({ rel: 'group1' });
+    </script>
+</body>
+</html>

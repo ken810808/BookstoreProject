@@ -1,0 +1,88 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<global::BookStore_Web_.Models.Schedule>
+
+
+<div class="scrollit">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>
+                    @Html.ActionLink(@Html.DisplayNameFor(p => p.First().Emp_Information.Emp_Name).ToHtmlString(), "Index", new { sortBy = ViewBag.sortModelNumber })
+                </th>
+                <th>
+                    @Html.ActionLink(@Html.DisplayNameFor(p => p.First().Emp_Information.Dept_Information.Dept_Name).ToHtmlString(), "Index", new { sortBy = ViewBag.sortModelName })
+                </th>
+                <th>@Html.ActionLink(@Html.DisplayNameFor(p => p.First().Location.Location_Name).ToHtmlString(), "Index", new { sortBy = ViewBag.sortUnitCost })</th>
+                <th>申請開始時間</th>
+                <th>申請結束時間</th>
+                <th>審核狀態</th>
+                <th>@Html.DisplayNameFor(p => p.First().Application_Reason)</th>
+                <th>編輯</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var product in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(p => product.Emp_Information.Emp_Name)
+                        @*@Ajax.ActionLink(product.Emp_Information.Emp_Name, "Details", "Products",
+                            new { id = product.ScheduleID }, new AjaxOptions()
+                            {
+                                HttpMethod = "get",
+                                UpdateTargetId = "target",
+                                InsertionMode = InsertionMode.Replace
+                            })*@
+                    </td>
+                    <td>@Html.DisplayFor(p => product.Emp_Information.Dept_Information.Dept_Name)</td>
+                    <td>
+                        @string.Format("{0:c0}", product.Location.Location_Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(p => product.Application_DateTime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(p => product.ScheduleDateTime)
+                    </td>
+                    <td>
+                        @{
+                string status = "";
+                if (product.Check_ID == 0)
+                {
+                    status = "審核中";
+                }
+                else if (product.Check_ID == 1)
+                {
+                    status = "通過審核";
+                }
+                else if (product.Check_ID == 2)
+                {
+                    status = "未通過審核";
+                }
+                        }
+                        <p>@status</p>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(p => product.Application_Reason)
+                        @*<img src='@Url.Action("GetImageFile","Products",new{fileName=product.ProductImage})' class="img-thumbnail thumb" title="imageFile" />
+                            <img src='@Url.Action("GetImageByte","Products",new{id=product.ProductID})' class="img-thumbnail thumb" title="imageByte" />*@
+                    </td>
+                    <td>
+                        <a href="~/Admin/Edit/@product.EmployeeID" class="btn btn-primary" data-toggle="modal" data-target="#div2"><span class="glyphicon glyphicon-pencil"></span></a>
+                    </td>
+                    @*<td>
+                            <a href="~/Admin/Delete/@product.EmployeeID"><span class="glyphicon glyphicon-trash"></span></a>
+                        </td>
+                        <td></td>*@
+                </tr>
+
+            }
+        </tbody>
+    </table>
+
+    @Html.PagedListPager(Model,
+                                page => Url.Action("Index", new { page, sortBy = Request.QueryString["sortBy"] }),
+                                PagedListRenderOptions.Classic)
+</div>
+<div class="modal fade" id="div2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>

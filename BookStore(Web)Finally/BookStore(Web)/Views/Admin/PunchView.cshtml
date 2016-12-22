@@ -1,0 +1,175 @@
+﻿@model IEnumerable<global::BookStore_Web_.Models.Location>
+@{
+    ViewBag.Title = "PunchView";
+    Layout = "~/Views/Shared/Easy.cshtml";
+}
+<style>
+    html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    #map {
+        height: 100%;
+    }
+
+    #punch {
+        height: 250px;
+        width: 250px;
+    }
+</style>
+
+
+<body>
+
+    <p />
+    <div class="row col-sm-12">
+        <div class="col-sm-6" id="map" style="height:450px;width:500px">
+        </div>
+    </div>
+    <hr />
+
+    <div class="row">
+        <div class="col-md-2">
+            <input type="button" class=" btn btn-success" id="NTU" value="台灣大學" />
+            <p></p>
+            <input type="button" class=" btn btn-success" id="Taichung" value="台中中興大學" />
+            <p></p>
+            <input type="button" class=" btn btn-success" id="Kou" value="高雄中山大學" />
+        </div>
+        <div class="col-md-1">
+            <input type="button" class="btn btn-success" id="punch" value="打卡" />
+        </div>
+    </div>
+</body>
+<div id="1"></div>
+
+<script src="~/Scripts/jquery-2.2.0.min.js"></script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDKxBE29uoKIlnaBoB75O2Wwq3ZSORPGTA&signed_in=true&callback=initMap&libraries=places"></script>
+
+<script type="text/javascript">
+
+    var map;
+    var marker;
+    var init_lat = 23.5000;
+    var init_lng = 121.0000;
+    var icons = "/picture/flag.png";
+    function initialize() {
+        //Create initialize map   初始地圖
+        if (navigator.geolocation) {
+            map = new google.maps.Map(
+                document.getElementById("map"), {
+                    center: { lat: init_lat, lng: init_lng },
+                    zoom: 8,
+                    disableDefaultUI: true
+                }
+            );
+
+            marker = new google.maps.Marker({
+                position: { lat: init_lat, lng: init_lng },
+                map: map,
+                title: '初始位置',
+                draggable: true,
+                icon: icons
+            });
+            $('#lat').text(init_lat);
+            $('#lng').text(init_lng);
+        } else {
+            alert("瀏覽器不支援地打卡系統")  // do not support the geolocation
+        }
+
+    }
+    google.maps.event.addDomListener(window, 'load', initialize);
+
+    //The button can search your location 搜尋自己位置的Button
+
+    var Now_lat;
+    var Now_lng;
+
+
+    var startPos;
+    var geoSuccess = function (position) {
+        startPos = position;
+    };
+    navigator.geolocation.getCurrentPosition(geoSuccess);
+
+    //Location NTU 台大
+    $('#NTU').click(function () {
+        Now_lat = 25.016462523609935;
+        Now_lng = 121.54033785606691;
+        map = new google.maps.Map(
+             document.getElementById("map"),
+           {
+               center: { lat: Now_lat, lng: Now_lng },
+               zoom: 14,
+               disableDefaultUI: true
+           }
+           );
+        marker = new google.maps.Marker({
+            position: { lat: Now_lat, lng: Now_lng },
+            map: map,
+            draggable: true,
+            animation: google.maps.Animation.DROP,
+            title: '台大',
+            icon: icons
+        })
+    })
+
+
+    $('#Taichung').click(function () {
+        Now_lat = 24.12203030189395;
+        Now_lng = 120.67443495537111;
+        map = new google.maps.Map(
+             document.getElementById("map"),
+           {
+               center: { lat: Now_lat, lng: Now_lng },
+               zoom: 14,
+               disableDefaultUI: true
+           }
+           );
+        marker = new google.maps.Marker({
+            position: { lat: Now_lat, lng: Now_lng },
+            map: map,
+            draggable: true,
+            animation: google.maps.Animation.DROP,
+            title: '中興大學',
+            icon: icons
+        })
+    })
+
+
+    $('#Kou').click(function () {
+        Now_lat = 22.626438798917185;
+        Now_lng = 120.26592379356691;
+
+        map = new google.maps.Map(
+             document.getElementById("map"),
+           {
+               center: { lat: Now_lat, lng: Now_lng },
+               zoom: 14,
+               disableDefaultUI: true
+           }
+           );
+        marker = new google.maps.Marker({
+            position: { lat: Now_lat, lng: Now_lng },
+            map: map,
+            draggable: true,
+            animation: google.maps.Animation.DROP,
+            title: '中山大學',
+            icon: icons
+        })
+
+
+    })
+
+    $('#punch').click(function () {
+        var checking = confirm("確定打卡?");
+        if (checking) {
+            $('#1').load('@Url.Action("punch_count", "Admin")?ID=' + 5 + '&lat=' + Now_lat + '&lng=' + Now_lng);
+        } else {
+            console.log("No");
+        }
+    })
+</script>
+

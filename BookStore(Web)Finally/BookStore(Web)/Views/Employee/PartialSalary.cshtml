@@ -1,0 +1,30 @@
+﻿@model IEnumerable<BookStore_Web_.Models.VM.allsalary>
+
+
+<div class="col-md-6">
+    <table class="table table-bordered table-hover scrolli">
+        <thead>
+            <tr>
+                <th>姓名</th>
+                <th>基本薪資</th>
+                <th>油資補助</th>
+                <th>總薪資</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var emp in Model)
+            {
+                <tr>
+                    <td>@emp.name</td>
+                    <td>@emp.Salary</td>
+                    <td>@emp.rei</td>
+                    <td>@emp.Allsalary</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div class="col-md-6" id="detial"></div>
+<script>
+    $('#detial').load('@Url.Action("detial","Employee")');
+</script>

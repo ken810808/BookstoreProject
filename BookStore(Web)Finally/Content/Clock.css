@@ -1,0 +1,87 @@
+﻿
+body {
+  /*font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;*/
+  font-weight: 300;
+  background:#fff;
+}
+#canvas {
+  transform: rotate(-90deg);
+  /* below margin becuase bootstrap messed up */
+  margin: -80px auto auto -10px;
+  background:	#2494ff ;
+  width: 230px;
+  height: 230px;
+  border-radius: 140px;
+  box-shadow: -3px 3px#00BBFF;
+}
+/*.container {
+  background: #3C3A44;
+  color: #fff;
+  margin: 200px auto;
+  width: 650px;
+  border-radius: 5px;
+  box-shadow: 5px 5px #28262d;
+}*/
+.clock {
+  display: inline-block;
+  padding: 10px;
+  position: absolute;
+  z-index: 100;
+  margin-left: 40px;
+
+ 
+}
+.clk_hours {
+  margin: -30px auto;
+  font-weight: bold;
+  font-size: 42px;
+  color: #fff;
+}
+.clk_days {
+  margin: 30px auto auto 20px;
+    color: #fff;
+}
+.clk_date {
+  margin: 10px auto auto 10px;
+  font-size: 16px;
+    color: #fff;
+}
+/*.tabpanel {
+  width: 400px;
+  font-size: 20px;
+  margin: -150px 10px 10px 225px;
+}*/
+.nav-tabs > li {
+  width: 33%;
+  margin-bottom: 0px;
+}
+.nav-tabs > li a,
+.nav-tabs > li > a:hover {
+  background: #3fa1ff;
+  color: #fff;
+  border: none;
+}
+.nav-tabs > li span {
+  margin-left: 30%;
+}
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:hover,
+.nav-tabs > li.active > a:focus {
+  background: #3C3A44;
+  color: #3fa1ff;
+  border: none;
+}
+.tab-pane {
+  padding: 10px;
+  min-height: 100px;
+  color: #3fa1ff;
+}
+.value {
+  width: 90px;
+  height: 70px;
+  padding: 5px;
+  text-align: center;
+  display: inline-block;
+  
+  /*border: 1px dashed #ffff5a;*/
+}

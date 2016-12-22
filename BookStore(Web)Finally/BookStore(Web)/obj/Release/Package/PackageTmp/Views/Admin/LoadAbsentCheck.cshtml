@@ -1,0 +1,55 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+
+@model IPagedList<BookStore_Web_.Models.Absence_Table>
+@{
+    ViewBag.Title = "LoadAbsentCheck";
+}
+<table class="table table-bordered table-hover">
+    <tbody>
+        @*Model是一個保留字，代表Controller傳過來的資料*@
+        @*但是Model是什麼類型的資料，我們不知道?如果要知道Model是什麼類型的資料，要看最上面的宣告*@
+        @foreach (var _Absence in Model)
+        {
+            <tr>
+                <td>@Html.CheckBox("check", new { value = _Absence.Absence_No, @class = "ch" })</td>
+                <td>@Html.DisplayFor(model => _Absence.Absence_No)</td>
+                <td class="EmpName">@Html.DisplayFor(model => _Absence.Emp_Information.Emp_Name)</td>
+                <td>@Html.DisplayFor(model => _Absence.Emp_Information.Dept_Information.Dept_Name)</td>
+                <td>@Html.DisplayFor(p => _Absence.Absence_Type.Absence_Type1)</td>
+                <td><div>@_Absence.StartDate.ToString("yyyy/MM/dd tt hh:mm", System.Globalization.CultureInfo.CreateSpecificCulture("en-US"))</div></td>
+                <td><div>@_Absence.EndDate.ToString("yyyy/MM/dd tt hh:mm", System.Globalization.CultureInfo.CreateSpecificCulture("en-US"))</div></td>
+                <td>
+                    @{
+                        TimeSpan t = new TimeSpan();
+                              double t1 = 0.0;
+                              int notWorkingDay = 0;
+
+                              foreach (var item in Model.Where(n => n.Absence_No == _Absence.Absence_No))
+                              {
+                                  for (int i = item.StartDate.DayOfYear, max = item.EndDate.DayOfYear; i <= max; i++)
+                                  {
+                                      foreach (var holiday in @ViewBag.Holiday)
+                                      {
+                                          if (holiday.CompareTo(i) == 0)
+                                          {
+                                              notWorkingDay += 1;
+                                          }
+                                      }
+                                  }
+
+                                  t = item.EndDate - item.StartDate;
+                                  t1 = t1 + (t.TotalHours - notWorkingDay * 24.0 - (item.EndDate.DayOfYear - item.StartDate.DayOfYear - notWorkingDay) * 15) / 9;                                
+                              }
+                    }
+                    @Math.Round(t1, 1)
+                </td>
+                 <td>@Html.DisplayFor(p => _Absence.Reason)</td>
+                <td><image alt="AbsenceTable image" title="AbsenceImage" class="thumb" src="@Url.Action("GetImage", new { id = _Absence.Absence_No })"></image></td>
+                <td>@Html.DisplayFor(p => _Absence.ChechStatus.Status)</td>
+                <td><a href="~/Admin/AbsentAccept/@_Absence.Absence_No" class="btn btn-warning">接受</a></td>
+                <td><a href="~/Admin/AbsentReject/@_Absence.Absence_No" class="btn btn-danger">拒絕</a></td>
+            </tr>
+        }
+    </tbody>
+</table>

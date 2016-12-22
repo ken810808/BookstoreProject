@@ -1,0 +1,50 @@
+﻿<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<link href="~/Content/css.css" rel="stylesheet" />
+<link href="~/Content/animate.min.css" rel="stylesheet" />
+<link href="~/Content/style.css" rel="stylesheet" />
+@*<link href="~/Content/main.css" rel="stylesheet" />
+<link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+<link href="~/Content/animate.min.css" rel="stylesheet" />*@
+
+
+<body>
+    <!--Call your modal-->
+    @*<a id="demo" href="#animatedModal">DEMO01</a> 
+
+    <div id="animatedModal">
+        <div class="close-animatedModal">
+            CLOSE MODAL
+        </div>
+        <div class="modal-content">
+          @*內容
+        </div>
+    </div>*@
+
+    <a id="demo02" href="#modal-02">果凍</a>
+    <div id="modal-02">
+        <!--"THIS IS IMPORTANT! to close the modal, the class name has to match the name given on the ID-->
+        <div id="btn-close-modal" class="close-modal-02">關閉</div>
+
+        <div class="modal-content">
+            <!--Your modal content goes here-->
+        </div>
+    </div>
+</body>
+
+
+<script src="~/Scripts/jquery-2.2.0.min.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/plugins.js"></script>
+<script src="~/Scripts/animatedModal.min.js"></script>
+<script src="~/Scripts/main.js"></script>
+
+<script>
+    //$("#demo").animatedModal();
+
+    $('#demo02').animatedModal({
+        modalTarget:'modal-02',
+        animatedIn: 'bounceIn',
+        animatedOut: 'bounceOutDown',
+        color:'#3498db',   
+    });
+</script>

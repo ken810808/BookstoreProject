@@ -1,0 +1,77 @@
+﻿@model BookStore_Web_.Models.Emp_Information
+
+@using(@Html.BeginForm("Count","Home",FormMethod.Post))
+{
+    <div>
+    @Html.DisplayNameFor(p => p.Emp_Name)
+        <div>
+            @Html.TextBoxFor(p => p.Emp_Name, new { placeholder="姓名"})
+        </div>
+    </div>
+    <div>
+    @Html.DisplayNameFor(p => p.Emp_Log)
+     <div>
+    @Html.TextBoxFor(p => p.Emp_Log, new { placeholder = "帳號" })
+     </div>
+    </div>
+    <div>
+      @Html.DisplayNameFor(p=>p.Emp_Password)
+        <div>
+       @Html.TextBoxFor(p => p.Emp_Password, new { placeholder = "密碼" })
+        </div>
+    </div>
+    <div>
+    @Html.DisplayNameFor(p=>p.Emp_E_Mail)
+<div>
+    @Html.TextBoxFor(p => p.Emp_E_Mail, new { placeholder = "信箱" })
+</div>
+    </div>
+    <div>
+    @Html.DisplayNameFor(p=>p.Emp_Tel)
+<div>
+    @Html.TextBoxFor(p => p.Emp_Tel, new { placeholder = "家裡電話" })
+</div>
+    </div>
+    <div>
+    @Html.DisplayNameFor(p=>p.Emp_StartWorkingDate)
+<div>
+    @Html.EditorFor(p => p.Emp_StartWorkingDate, new { placeholder = "工作日期" })
+</div>
+    </div>
+    <div>
+    @Html.DisplayNameFor(p=>p.Emp_CellPhone)
+<div>
+    @Html.TextBoxFor(p => p.Emp_CellPhone, new { placeholder = "手機" })
+</div>
+    </div>
+    <div>
+    @Html.DisplayNameFor(p=>p.Emp_Address)
+<div>
+    @Html.TextBoxFor(p => p.Emp_Address, new { placeholder = "地址" })
+</div>
+    </div>
+    <div>
+    @Html.DisplayNameFor(p=>p.Emp_Gender)
+<div>
+    @Html.TextBoxFor(p => p.Emp_Gender, new { placeholder = "性別" })
+</div>
+    </div>
+    <div>
+    @Html.DisplayNameFor(p=>p.Emp_Identity)
+<div>
+    @Html.TextBoxFor(p => p.Emp_Identity, new { placeholder = "身分證" })
+</div>
+    </div>
+    <div>
+        @Html.DisplayNameFor(p=>p.Emp_Image)
+        <div>
+        @Html.TextBoxFor(p => p.Emp_Image, new { type="file"})
+        </div>
+    </div>
+    <div>
+        @Html.DisplayNameFor(p=>p.Emp_DeptID)
+        <div>
+            @Html.DropDownListFor(p => p.Emp_DeptID, (SelectList)ViewBag.occu, "請選擇", new { @class="form-control"})
+        </div>
+    </div>
+}

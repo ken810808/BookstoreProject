@@ -1,0 +1,174 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="BookStoreObject_Entities">
+    <EntitySetMapping Name="Absence_Table">
+      <EntityTypeMapping TypeName="Model.Absence_Table">
+        <MappingFragment StoreEntitySet="Absence_Table">
+          <ScalarProperty Name="Absence_No" ColumnName="Absence_No" />
+          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+          <ScalarProperty Name="Absence_ID" ColumnName="Absence_ID" />
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+          <ScalarProperty Name="Reason" ColumnName="Reason" />
+          <ScalarProperty Name="Certificate_Doc" ColumnName="Certificate_Doc" />
+          <ScalarProperty Name="Check_ID" ColumnName="Check_ID" />
+          <ScalarProperty Name="Dispose" ColumnName="Dispose" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Absence_Type">
+      <EntityTypeMapping TypeName="Model.Absence_Type">
+        <MappingFragment StoreEntitySet="Absence_Type">
+          <ScalarProperty Name="Absence_ID" ColumnName="Absence_ID" />
+          <ScalarProperty Name="Absence_Type1" ColumnName="Absence_Type" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChechStatus">
+      <EntityTypeMapping TypeName="Model.ChechStatus">
+        <MappingFragment StoreEntitySet="ChechStatus">
+          <ScalarProperty Name="Check_ID" ColumnName="Check_ID" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CheckInDetail">
+      <EntityTypeMapping TypeName="Model.CheckInDetail">
+        <MappingFragment StoreEntitySet="CheckInDetail">
+          <ScalarProperty Name="CheckInRecordID" ColumnName="CheckInRecordID" />
+          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+          <ScalarProperty Name="Emp_AttendacyID" ColumnName="Emp_AttendacyID" />
+          <ScalarProperty Name="Absence_ID" ColumnName="Absence_ID" />
+          <ScalarProperty Name="CheckInLocation" ColumnName="CheckInLocation" />
+          <ScalarProperty Name="CheckInDateTime" ColumnName="CheckInDateTime" />
+          <ScalarProperty Name="CheclInLatitude" ColumnName="CheclInLatitude" />
+          <ScalarProperty Name="CheckLongitude" ColumnName="CheckLongitude" />
+          <ScalarProperty Name="Dis_Between_Previous" ColumnName="Dis_Between_Previous" />
+          <ScalarProperty Name="Note" ColumnName="Note" />
+          <ScalarProperty Name="In_Out" ColumnName="In_Out" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Dept_Information">
+      <EntityTypeMapping TypeName="Model.Dept_Information">
+        <MappingFragment StoreEntitySet="Dept_Information">
+          <ScalarProperty Name="Emp_DeptID" ColumnName="Emp_DeptID" />
+          <ScalarProperty Name="Dept_Name" ColumnName="Dept_Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Emp_AttendancyType">
+      <EntityTypeMapping TypeName="Model.Emp_AttendancyType">
+        <MappingFragment StoreEntitySet="Emp_AttendancyType">
+          <ScalarProperty Name="Emp_AttendacyID" ColumnName="Emp_AttendacyID" />
+          <ScalarProperty Name="Emp_AttendancyType1" ColumnName="Emp_AttendancyType" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Emp_Authority">
+      <EntityTypeMapping TypeName="Model.Emp_Authority">
+        <MappingFragment StoreEntitySet="Emp_Authority">
+          <ScalarProperty Name="Emp_AuthorityID" ColumnName="Emp_AuthorityID" />
+          <ScalarProperty Name="Emp_AuthorityRange" ColumnName="Emp_AuthorityRange" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Emp_Information">
+      <EntityTypeMapping TypeName="Model.Emp_Information">
+        <MappingFragment StoreEntitySet="Emp_Information">
+          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+          <ScalarProperty Name="Emp_OccupationID" ColumnName="Emp_OccupationID" />
+          <ScalarProperty Name="Emp_Name" ColumnName="Emp_Name" />
+          <ScalarProperty Name="Emp_Tel" ColumnName="Emp_Tel" />
+          <ScalarProperty Name="Emp_CellPhone" ColumnName="Emp_CellPhone" />
+          <ScalarProperty Name="Emp_Address" ColumnName="Emp_Address" />
+          <ScalarProperty Name="Emp_E_Mail" ColumnName="Emp_E-Mail" />
+          <ScalarProperty Name="Emp_Gender" ColumnName="Emp_Gender" />
+          <ScalarProperty Name="Emp_StartWorkingDate" ColumnName="Emp_StartWorkingDate" />
+          <ScalarProperty Name="Emp_Image" ColumnName="Emp_Image" />
+          <ScalarProperty Name="Emp_DeptID" ColumnName="Emp_DeptID" />
+          <ScalarProperty Name="Emp_Report" ColumnName="Emp_Report" />
+          <ScalarProperty Name="Emp_Password" ColumnName="Emp_Password" />
+          <ScalarProperty Name="Emp_Identity" ColumnName="Emp_Identity" />
+          <ScalarProperty Name="Emp_Log" ColumnName="Emp_Log" />
+          <ScalarProperty Name="Emp_Dispose" ColumnName="Emp_Dispose" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Emp_Occupation">
+      <EntityTypeMapping TypeName="Model.Emp_Occupation">
+        <MappingFragment StoreEntitySet="Emp_Occupation">
+          <ScalarProperty Name="Emp_OccupationID" ColumnName="Emp_OccupationID" />
+          <ScalarProperty Name="Emp_OccupationName" ColumnName="Emp_OccupationName" />
+          <ScalarProperty Name="Salary" ColumnName="Salary" />
+          <ScalarProperty Name="Emp_AuthorityID" ColumnName="Emp_AuthorityID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Location">
+      <EntityTypeMapping TypeName="Model.Location">
+        <MappingFragment StoreEntitySet="Location">
+          <ScalarProperty Name="LocationID" ColumnName="LocationID" />
+          <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+          <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+          <ScalarProperty Name="Location_Name" ColumnName="Location_Name" />
+          <ScalarProperty Name="Location_DElete" ColumnName="Location_DElete" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="reimbursement">
+      <EntityTypeMapping TypeName="Model.reimbursement">
+        <MappingFragment StoreEntitySet="reimbursement">
+          <ScalarProperty Name="ScheduleID" ColumnName="ScheduleID" />
+          <ScalarProperty Name="Allowance" ColumnName="Allowance" />
+          <ScalarProperty Name="Invoice" ColumnName="Invoice" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Salary">
+      <EntityTypeMapping TypeName="Model.Salary">
+        <MappingFragment StoreEntitySet="Salary">
+          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+          <ScalarProperty Name="DateTime" ColumnName="DateTime" />
+          <ScalarProperty Name="Emp_Salary" ColumnName="Emp_Salary" />
+          <ScalarProperty Name="Emp_hours" ColumnName="Emp_hours" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Schedule">
+      <EntityTypeMapping TypeName="Model.Schedule">
+        <MappingFragment StoreEntitySet="Schedule">
+          <ScalarProperty Name="ScheduleID" ColumnName="ScheduleID" />
+          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+          <ScalarProperty Name="ScheduleDateTime" ColumnName="ScheduleDateTime" />
+          <ScalarProperty Name="LocationID" ColumnName="LocationID" />
+          <ScalarProperty Name="Application_DateTime" ColumnName="Application_DateTime" />
+          <ScalarProperty Name="Application_Reason" ColumnName="Application_Reason" />
+          <ScalarProperty Name="Check_ID" ColumnName="Check_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="Model.sysdiagrams">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Cmp_Information">
+      <EntityTypeMapping TypeName="Model.Cmp_Information">
+        <MappingFragment StoreEntitySet="Cmp_Information">
+          <ScalarProperty Name="Cmp_Name" ColumnName="Cmp_Name" />
+          <ScalarProperty Name="Cmp_Tel" ColumnName="Cmp_Tel" />
+          <ScalarProperty Name="Cmp_Address" ColumnName="Cmp_Address" />
+          <ScalarProperty Name="Cmp_Logo" ColumnName="Cmp_Logo" />
+          <ScalarProperty Name="Cmp_TaxID" ColumnName="Cmp_TaxID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

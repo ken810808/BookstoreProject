@@ -1,0 +1,37 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+
+@model IPagedList<BookStore_Web_.Models.Absence_Table>
+@{
+    ViewBag.Title = "LoadAbsent";
+}
+<table class="table table-bordered table-hover">
+    <tbody>
+        @*Model是一個保留字，代表Controller傳過來的資料*@
+        @*但是Model是什麼類型的資料，我們不知道?如果要知道Model是什麼類型的資料，要看最上面的宣告*@
+        @foreach (var _Absence in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(model => _Absence.Absence_No)</td>
+                <td>@Html.DisplayFor(model => _Absence.Emp_Information.Emp_Name)</td>
+                <td>@Html.DisplayFor(model => _Absence.Emp_Information.Dept_Information.Dept_Name)</td>
+                <td>@Html.DisplayFor(p => _Absence.Absence_Type.Absence_Type1)</td>
+                <td><div>@_Absence.StartDate.ToString("yyyy/MM/dd tt hh:mm", System.Globalization.CultureInfo.CreateSpecificCulture("en-US"))</div></td>
+                <td><div>@_Absence.EndDate.ToString("yyyy/MM/dd tt hh:mm", System.Globalization.CultureInfo.CreateSpecificCulture("en-US"))</div></td>
+                <td>@Html.DisplayFor(p => _Absence.Reason)</td>
+                <td><image alt="AbsenceTable image" title="AbsenceImage" class="thumb" src="~/Employee/GetImage/@_Absence.Absence_No"></image></td>
+                <td>@Html.DisplayFor(p => _Absence.ChechStatus.Status)</td>
+                @if (_Absence.Check_ID == 2)
+                {
+                    <td><a href="#" class="btn btn-warning disabled">編輯</a></td>
+                    <td><a href="#" class="btn btn-danger disabled">刪除</a></td>
+                }
+                else
+                {
+                    <td><a href="~/Employee/AbsentEdit/@_Absence.Absence_No" class="btn btn-warning">編輯</a></td>
+                    <td><a href="~/Employee/AbsentDelete/@_Absence.Absence_No" class="btn btn-danger">刪除</a></td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>

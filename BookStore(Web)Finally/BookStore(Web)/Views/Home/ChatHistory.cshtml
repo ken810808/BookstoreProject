@@ -1,0 +1,37 @@
+﻿@model BookStore_Web_.Models.ChatModel
+
+
+<script src="~/Scripts/jquery-2.2.1.min.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/Scripts/jquery-ui-1.8.20.min.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/Scripts/Chat.js"></script>
+
+<div id="Lobby">
+    <p>
+        <b>@Model.Users.Count online users</b>
+    </p>
+    @foreach (BookStore_Web_.Models.ChatModel.ChatUser user in Model.Users)
+    {
+        @user.NickName<br />
+    }
+</div>
+<div id="ChatHistory">
+    @foreach (BookStore_Web_.Models.ChatModel.ChatMessage msg in Model.ChatHistory)
+    {
+        <p>
+            <i>@msg.When</i><br />
+            @if (msg.ByUser != null)
+            {
+                <b>@(msg.ByUser.NickName + ":")</b> @msg.Message
+            }
+            else
+            {
+                <span style="color: Red">@msg.Message</span>
+            }
+        </p>
+    }
+</div>

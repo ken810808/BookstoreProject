@@ -1,0 +1,98 @@
+﻿@model IEnumerable<BookStore_Web_.Models.CheckInDetail>
+
+<script src="~/Scripts/jquery-2.2.0.min.js"></script>
+<script src="~/Scripts/amcharts.js"></script>
+<script src="~/Scripts/serial.js"></script>
+<script src="~/Scripts/pie.js"></script>
+
+<div id="chartline" style="width:100%; height:400px;">
+</div>
+<script>
+    var chart2;
+
+    var chartData2 =
+       [
+           @{
+               List<int> data = new List<int>();
+    int kilo = 0;
+    }
+           @for (var i = 1; i <= 12; i++)
+    {
+               foreach (var item in Model.Where(n => n.EmployeeID == ViewBag.E))
+               {
+                   if (item.CheckInDateTime.Value.Month == i)
+                   {
+                       kilo += @Convert.ToInt32(item.Dis_Between_Previous);
+                   }
+               }
+               data.Add(kilo);
+               kilo = 0;
+           }
+            @for (int i = 0, j=1; i < 12; i++,j++)
+    {
+                   <text>
+    {
+                       "月份": "@j",
+                       "油資": " @(@data[i]*5)"
+            },
+                   </text>
+            }
+
+            ];
+
+    AmCharts.ready(function () {
+                // SERIAL CHART
+        chart2 = new AmCharts.AmSerialChart();
+                //資料載入
+        chart2.dataProvider = chartData2;
+                //X軸的值
+        chart2.categoryField = "月份";
+                //動畫時間
+        chart2.startDuration = 1;
+                //chart.rotate = true;
+
+                // 1.category
+        var categoryAxis = chart2.categoryAxis;
+                //底線顏色
+        categoryAxis.axisColor = "black";
+                //分隔線距離
+        categoryAxis.dashLength = 20;
+                //categoryAxis.gridPosition = "start";
+
+                // 2.value
+        var valueAxis = new AmCharts.ValueAxis();
+        valueAxis.dashLength = 10;
+        valueAxis.axisAlpha = 0.2;
+        valueAxis.position = "top";
+        valueAxis.title = "油資補助";
+        valueAxis.minorGridEnabled = true;
+        valueAxis.minorGridAlpha = 0.08;
+        valueAxis.gridAlpha = 0.15;
+        chart2.addValueAxis(valueAxis);
+
+
+                // line graph
+        var graph2 = new AmCharts.AmGraph();
+        graph2.type = "line";
+        graph2.lineColor = "#27c5ff";
+        graph2.bulletColor = "#FFFFFF";
+        graph2.bulletBorderColor = "#27c5ff";
+        graph2.bulletBorderThickness = 2;
+        graph2.bulletBorderAlpha = 10;
+        graph2.title = "油資";
+        graph2.valueField = "油資";
+        graph2.lineThickness = 2;
+        graph2.bullet = "round";
+        graph2.fillAlphas = 0;
+        graph2.balloonText = "<span style='font-size:13px;'>[[category]] 月的[[title]]  : <b>[[value]]</b></span>";
+        chart2.addGraph(graph2);
+
+                //// LEGEND
+        var legend = new AmCharts.AmLegend();
+        legend.useGraphSettings = true;
+        chart2.addLegend(legend);
+
+                // WRITE
+        chart2.write("chartline");
+            });
+        </script>

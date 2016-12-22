@@ -1,0 +1,45 @@
+﻿@model IEnumerable<BookStore_Web_.Models.VM.allsalary>
+
+<script src="~/Scripts/jquery-2.2.0.min.js"></script>
+<script src="~/Scripts/amcharts.js"></script>
+<script src="~/Scripts/serial.js"></script>
+<script src="~/Scripts/pie.js"></script>
+
+<div id="chartpie" style="width:100%; height:400px;" class="col-md-12">
+</div>
+
+<script>
+    var chart3;
+    var legend;
+
+    var chartData3 = [
+        @foreach(var p in Model)
+    {
+        <text>
+    {
+        "月份": "@p.Date",
+        "總薪資": "@p.Salary"
+    },
+    </text>
+    }
+    ];
+
+    AmCharts.ready(function () {
+        // PIE CHART
+        chart3 = new AmCharts.AmPieChart();
+        chart3.dataProvider = chartData3;
+        chart3.titleField = "月份";
+        chart3.valueField = "總薪資";
+        chart3.outlineColor = "#FFFFFF";
+        chart3.outlineAlpha = 0.8;
+        chart3.outlineThickness = 2;
+        chart3.innerRadius = 40;
+        chart3.balloonText = "[[title]]月<br><span style='font-size:14px'><b>NT$ [[value]]</b> ([[percents]]%)</span>";
+        chart3.depth3D = 30;
+        chart3.angle = 50;
+
+        // WRITE
+        chart3.write("chartpie");
+    });
+</script>
+

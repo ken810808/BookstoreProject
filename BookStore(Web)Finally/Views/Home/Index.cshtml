@@ -1,0 +1,186 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="contents">
+    <br><br><br><br><br><br>
+    <center>
+        <script src="~/Scripts/Clockjs.js"></script>
+        <link rel="stylesheet" media="all" href="~/Content/Clock.css">
+        <!--放時鐘-->
+        <div class="container">
+            <div class="clock">
+                <div class="clk_hours"></div>
+                <div class="clk_days"></div>
+                <div class="clk_date"></div>
+            </div>
+
+            <canvas id="canvas" width="230" height="230">
+                您的瀏覽器沒有支援 canvas !
+            </canvas>
+
+            <div role="tabpanel" class="tabpanel">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation">
+                    </li>
+                    <li role="presentation" class="active">
+                      </li>
+                </ul>
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane" id="home"><br><br><h1>工時打卡管理系統</h1></div>
+                </div>
+            </div>
+        </div>
+    </center>
+
+
+
+    <h1 class="img">
+        <img src="~/Content/img/TroIndeximg1.jpg" height="350" width="500" alt="現在打卡 即時互動">
+        <br /><br />@*現在打卡 即時互動*@
+    </h1>
+
+
+    <div class="mod-col2" id="top-release">
+        <section class="mod-release col2-a">
+            <h2>News</h2>
+
+            <dl>
+                <dt>01.28</dt>
+                <dd><a href="/news/n/2016/0128_01.htm">產品上線！</a></dd>
+            </dl>
+
+
+            <dl>
+                <dt>01.29</dt>
+                <dd><a href="/news/n/2016/0128_01.htm">新年快樂</a></dd>
+            </dl>
+
+
+            <dl>
+                <dt>01.29</dt>
+                <dd><a href="/news/n/2016/0128_01.htm">新功能追加！</a></dd>
+            </dl>
+
+
+            <dl>
+                <dt>01.30</dt>
+                <dd><a href="/news/n/2016/0128_01.htm">禮拜六不要上課</a></dd>
+            </dl>
+
+
+            <dl>
+                <dt>01.30</dt>
+                <dd><a href="/news/n/2016/0128_01.htm">禮拜六還是盡量去上課</a></dd>
+            </dl>
+
+
+            <p class="btn"><a class="mod-btn-mini" href="/news/n/latest.htm">More...</a></p>
+        </section>
+        <section class="mod-release col2-b">
+            <h2>Topics</h2>
+
+            <dl>
+                <dt>01.27</dt>
+                <dd>雜誌 人文文人 第2期（1月30日開賣）採訪蜂鳥完整報導!</dd>
+            </dl>
+
+
+            <dl>
+                <dt>01.28</dt>
+                <dd>報導</dd>
+            </dl>
+
+
+            <dl>
+                <dt>01.29</dt>
+                <dd><a href="/news/n/2016/0128_01.htm">過年期間停止營業公告</a></dd>
+            </dl>
+
+
+            <dl>
+                <dt>01.30</dt>
+                <dd>Startup Yo!（2016年1月號）蜂鳥成員投稿文章發佈</dd>
+            </dl>
+
+
+            <dl>
+                <dt>02.01</dt>
+                <dd>公共電視台“TroNews”訪問</dd>
+            </dl>
+
+
+            <p class="btn"><a class="mod-btn-mini" href="/news/t/latest.htm">More...</a></p>
+        </section>
+    </div>
+
+    <div id="introduction">
+        <div class="content">
+            <div class="inner">
+                <figure><img src="~/Content/img/TroUnderLogo.png" height="30" width="132" alt="Trochilidae"></figure>
+                <p>「發想×執行」</p>
+                <p><span>發想、</span>無限的天馬行空</p>
+                <p><span>實踐、</span>腳踏實地的去做</p>
+                <p><span>蜂鳥、</span>發想×執行=創造力</p>
+            </div>
+        </div>
+        <div class="btn"><img src="~/Content/img/btn_introduction_Tro.png" alt=""></div>
+    </div>
+
+    <div id="visual">
+        <section>
+            <div class="txt">
+                <h2>EMPLOYEE</h2>
+                <p>員工資料</p>
+                <!--記得放連結(圖下方文字說明)-->
+                <p><!--<a href="">-->公司情報<!--</a>--></p>
+            </div>
+            <figure class="pct"><!--<a href="">--><img src="~/Content/img/creative_office_design.jpg" alt=""><!--</a>--></figure>
+        </section>
+        <section class="even">
+            <div class="txt">
+                <h2>CLOCK-IN</h2>
+                <p>打卡</p>
+                <p><!--<a href="">-->服務<!--</a>--></p>
+            </div>
+            <figure class="pct"><!--<a href="">--><img src="~/Content/img/TroService.gif" alt=""><!--</a>--></figure>
+        </section>
+        <section>
+            <div class="txt">
+                <h2>DAY-OFF</h2>
+                <p>請假</p>
+                <!--記得放連結(圖下方文字說明)-->
+                <p><!--<a href="">-->員工請假<!--</a>--></p>
+            </div>
+            <figure class="pct"><!--<a href="">--><img src="~/Content/img/creative_office_design.jpg" alt=""><!--</a>--></figure>
+        </section>
+
+        <section>
+            <div class="txt">
+                <h2>AUTHORITY</h2>
+                <p>權限</p>
+                <p><!--<a href="">-->權限等級<!--</a>--></p>
+            </div>
+            <figure class="pct"><!--<a href="">--><img src="~/Content/img/AUTHORITY.jpg" alt=""><!--</a>--></figure>
+        </section>
+        <section class="even">
+            <div class="txt">
+                <h2>SCHEDULE / SALARY</h2>
+                <p>行程薪資</p>
+                <p><!--<a href="">行程薪資</a>--></p>
+            </div>
+            <figure class="pct"><!--<a href="">--><img src="~/Content/img/RECRUIT.png" alt=""><!--</a>--></figure>
+        </section>
+        <section>
+            <div class="txt">
+                <h2>CHATROOM</h2>
+                <p>聊天室</p>
+                <p><!--<a href="">-->CHATROOM<!--</a>--></p>
+            </div>
+            <figure class="pct"><!--<a href="">--><img src="~/Content/img/CodeaholicMain.png" height="600" width="800" alt=""><!--</a>--></figure>
+        </section>
+    </div>
+</div>*@*@
+

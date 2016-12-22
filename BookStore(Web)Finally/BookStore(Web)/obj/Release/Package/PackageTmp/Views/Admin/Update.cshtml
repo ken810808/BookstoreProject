@@ -1,0 +1,45 @@
+﻿@model BookStore_Web_.Models.Emp_Information
+<style>
+    .load {
+      height:200px;
+      width:200px;
+      text-align:center;
+    }
+</style>
+
+<div class="container">
+
+        @using (Html.BeginForm("Update", "Admin", FormMethod.Post, new { @class = "form-horizontal", enctype = "multipart/form-data" }))
+        {
+            <div class="col-md-4"></div>
+            <div class="col-md-4" style="background-color:cyan;border-radius:30px; margin-top:300px;">
+                <div class="form-group" style="margin-top:30px;">
+                    <label for="CategoryName" class="col-md-4 control-label" style="color:black">員工姓名:</label>
+                    <div class="col-md-8">
+                        <label class="control-label" style="color:black;">@Model.Emp_Name</label>
+                        <input type="hidden" value="@Model.EmployeeID" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="CategoryName" class="col-md-4 control-label" style="color:black">部門:</label>
+                    <div class="col-md-8">
+                        @Html.DropDownListFor(p => p.Emp_DeptID, (SelectList)ViewBag.Dept, "請選擇..", new { @class = "form-control" })<br />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="CategoryName" class="col-md-4 control-label" style="color:black">權限:</label>
+                    <div class="col-md-8">
+                        @Html.DropDownListFor(p => p.Emp_OccupationID, (SelectList)ViewBag.Occu, "請選擇..", new { @class = "form-control" })<br />
+                        @*<input type="text" class="form-control" name="Dept_Name" value="@Model.Dept_Information.Dept_Name" />*@
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-4 col-md-8">
+                        <button type="submit" class="btn btn-success">修改</button>
+                    </div>
+                </div>
+            </div>
+    <div class="col-md-4"></div>
+
+        }
+    </div>

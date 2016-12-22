@@ -1,0 +1,195 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="robots" content="index, follow" />
+    <meta name="description" content="Trochilidae Inc." />
+    <meta name="keywords" content="" />
+    <title>@ViewBag.Title</title>
+    <meta property="og:title" content="Trochilidae Inc." />
+    <meta property="og:type" content="company" />
+    <meta property="og:site_name" content="蜂鳥書局" />
+    <link rel="stylesheet" media="all" href="~/Content/home.css">
+    <meta property="og:description" content="Trochilidae currently operates Internet media in the fields of web design,progrmming and more." />
+    <link href="~/Content/mystyle.css" rel="stylesheet" />
+    <link rel="stylesheet" media="all" href="~/Content/Clock.css">
+
+</head>
+<body>
+
+    <div id="wrapper">
+        <div class="w3-col w3-slim" id="leftmenu" style="padding-top:44px;">
+            <div id="leftmenuinner" style="padding-top:44px"></div>
+            <div class="w3-light-grey" id="leftmenuinnerinner" >
+                <header>
+                    <h1 id="site-logo">
+                        <img src="~/Content/img/TroLogoWeb.jpg" height="118" width="111" /><a rel="home" href="~/Views/Shared/_TroMainLayout.cshtml">Trochilidae </a>
+                    </h1>
+                    <nav id="global-nav">
+                        <ul class="list-group scrollable">
+                            <li class="scrollcontent-horizontal"><a data-submenu-id="n-news">最新消息</a></li>
+                            <li><a data-submenu-id="n-company">員工資料</a></li>
+                            <li><a data-submenu-id="n-csr">打卡</a></li>
+                            <li><a data-submenu-id="n-service">請假</a></li>
+                            <li><a data-submenu-id="n-ir">權限</a></li>
+                            <li><a data-submenu-id="n-recruit">行程薪資</a></li>
+                            <li><a data-submenu-id="n-chat">聊天室</a></li>
+                        </ul>
+                    </nav>
+                    <div class="assist-nav">
+                        <ul class="language">
+                            <li><span>CHINESE</span></li>
+                            <li><a>ENGLISH</a></li>
+                        </ul>
+                    </div>
+                </header>
+
+                <div id="sub-nav">
+                    <section class="content" id="n-news">
+                        <div class="box">
+                            <h2>最新消息</h2>
+                            <div class="lead">
+                                <p class="link"><a href="/news/index.htm">NEWS Top</a></p>
+                            </div>
+                            <section>
+                                <h3><a href="/news/n/latest.htm">News Releases</a></h3>
+                                <p class="link"><a href="/news/n/latest.htm">News Releases</a></p>
+                            </section>
+                            <section>
+                                <h3><a href="/news/t/latest.htm">Topics</a></h3>
+                                <p class="link"><a href="/news/t/latest.htm">Topics</a></p>
+                            </section>
+                        </div>
+                    </section>
+                    <section class="content" id="n-company">
+                        <div class="box">
+                            <h2>員工資料</h2>
+                            @*放登入員工照片*@
+                            <div></div>
+                            <section>
+                                @Html.ActionLink("員工資料瀏覽", "Index", "Emp", new { area="Employees"}, null)
+                            </section>
+                            <section>
+                                <input type="button" value="新增員工" data-target="mymodal" data-toggle="modal" />
+                                <div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+                                     aria-labelledby="myModalLabel" aria-hidden="true">
+
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">     
+                                                <h4 class="modal-title" id="myModalLabel">
+                                                    新增員工
+                                                </h4>
+                                            </div>                                     
+                                        </div><!-- /.modal-content -->
+                                    </div><!-- /.modal-dialog -->
+                                </div><!-- /.modal -->
+                            </section>
+                        </div>
+                    </section>
+                    <section class="content" id="n-service">
+                        <div class="box">
+                            <h2>請假申請</h2>
+                            <section>
+                                @Html.ActionLink("請假申請", "Browse", "Home", null)
+                            </section>
+                            <section>
+                                @Html.ActionLink("審核狀態", "Browse", "Home", null)
+                            </section>
+                        </div>
+                    </section>
+                    <section class="content" id="n-ir">
+                        <div class="box">
+                            <h2>權限設定</h2>
+                            <div class="box">
+                                @Html.ActionLink("權限修改", "Authority", "Admin", null)
+                            </div>
+                        </div>
+                        </section>
+                    <section class="content" id="n-recruit">
+                        <div class="box">
+                            <h2>薪資查詢</h2>
+                            <section>
+                                @Html.ActionLink("薪資查詢", "Browse", "Home", null)
+                            </section>
+                            <section>
+                                @Html.ActionLink("油資補助", "Browse", "Home", null)
+                            </section>
+                        </div>
+                    </section>
+                    <section class="content" id="n-csr">
+                        <div class="box">
+                            <h2>打卡</h2>
+                            <section>
+                                @Html.ActionLink("打卡", "Browse", "Home", null)
+                            </section>
+                        </div>
+                    </section>
+                    <section class="content" id="n-chat">
+                        <div class="box">
+                            <h2>CHATROOM</h2>
+                            <div class="thumb"><a href="/recruit/index.htm">聊天室</a></div>
+                            <div class="lead">
+                                <p class="link"><a href="/recruit/index.htm">聊天室 熱門</a></p>
+                            </div>
+                        </div>
+                    </section>
+                    <div id="sub-nav-close"></div>
+                    <div class="btn-scroll" id="scroll-top"></div>
+                    <div class="btn-scroll" id="scroll-end"></div>
+                </div>
+            </div>
+        </div>
+        <!--內容請放@RenderBody中-->
+        <div class="w3-rest">
+            @RenderBody()
+            <div>
+
+            </div>
+        </div>
+
+        <!--網頁的屁屁在這裡-->
+        <footer>
+            @*<div class="inner">
+                <div id="page-top"><img src="~/Content/img/img_pagetop.png" alt=""></div>
+
+                <div class="bnr">
+                    <ul>
+                        <li>
+                            <a>
+                                <img src="~/Content/img/TroUnderLogo.png" height="74" width="254" alt="Trochilidae.info"><br>
+                                Trochilidae.info
+                            </a><br>蜂鳥的最新消息
+                        </li>
+                        <li>
+                            <a>
+                                <img src="~/Content/img/CodeUnderLogo.png" height="74" width="254" alt="Codeaholic"><br>
+                                Codeaholic
+                            </a><br>敲得過飲
+                        </li>
+                        <li>
+                            <a>
+                                <img src="~/Content/img/TroMadeUnderLogo.png" height="74" width="254" alt="Trochilidae made*"><br>
+                                Trochilidae made*
+                            </a><br>工程師，設計師專門網站
+                        </li>
+                    </ul>
+                </div>
+                <p class="copy"><small>Copyright &copy; Trochilidae Inc.</small></p>
+            </div>*@
+        </footer>
+    </div>
+    <script src="~/Scripts/jquery-2.2.0.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/application.js"></script>
+    <script src="~/Scripts/home.js"></script>
+    <script src="~/Scripts/MyFontsWebfontsKit.js"></script>
+    <script src="~/Scripts/Clockjs.js"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDKxBE29uoKIlnaBoB75O2Wwq3ZSORPGTA&signed_in=true&callback=initMap&libraries=places"></script>
+
+
+        </body>
+        </html>

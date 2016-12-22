@@ -1,0 +1,102 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<BookStore_Web_.Models.Salary>
+@{
+    ViewBag.Title = "薪資查詢";
+    Layout = "~/Views/Shared/Easy.cshtml";
+}
+
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+<style>    
+    .Pie:hover {
+      font-size:20px;
+    }
+    .Line:hover {
+        font-size: 20px;
+    }
+   
+</style>
+<link href="~/Content/animate.css" rel="stylesheet" />
+
+    <div class="wrap">
+        <span id="animationSandbox" style="display: block;" class="fadeInDown animated"><h1 class="site__title mega">薪資查詢</h1></span>
+    </div>
+
+
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div >
+            <ul class="nav navbar-nav"></ul>
+
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    @using (Html.BeginForm("SalaryBrowse", "Admin", FormMethod.Post, new { @class = "form-horizontal", encType = "multipart/form-data" }))
+                    { 
+                     <li>
+                         <input type="text" placeholder="請輸入姓名" name="name"/>
+                         <input type="submit" value="搜尋詳細資料"/>
+                     </li>
+                    }
+                </ul>
+            </div>
+
+        </div>
+    </div>
+</nav>
+
+    <table class="table table-bordered table-hover scrolli">
+        <thead>
+            <tr>
+                <th>員工編號</th>
+                <th>員工姓名</th>
+                <th>月份</th>
+                <th>員工工時</th>
+                <th>總薪資</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var emp in Model)
+            {
+                <tr>
+                    <td>@emp.EmployeeID</td>
+                    <td>@emp.Emp_Information.Emp_Name</td>
+                    <td>@emp.DateTime</td>
+                    <td>@emp.Emp_hours</td>
+                    <td>@string.Format("{0:c0}", emp.Emp_Salary)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+@Html.PagedListPager(Model, page => Url.Action("reimbursment", new { page }), PagedListRenderOptions.ClassicPlusFirstAndLast)
+
+
+<div id="divdata"></div>
+<script src="~/Scripts/jquery-2.2.0.min.js"></script>
+<script>
+    $('.Line').on('click', function () {
+       // $('#divdata').load('/Admin/PartialLine');
+        $('#divdata').load(''@Url.Action("PartialLine", "Admin"));
+
+    })
+    $('.Pie').on('click', function () {
+        //$('#divdata').load('/Admin/PartialPie');
+        $('#divdata').load('@Url.Action("PartialPie", "Admin")');
+
+    })
+
+</script>
+
+
+
+
+
+
+

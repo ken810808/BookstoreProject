@@ -1,0 +1,32 @@
+﻿
+@model IEnumerable<BookStore_Web_.Models.Emp_Information>
+@{
+    ViewBag.Title = "LoadOccu";
+}
+
+    <table class="scrollit table table-bordered table-hover ">
+        <thead class="head">
+            <tr>
+                <th>@Html.DisplayNameFor(p => p.First().Emp_Name)</th>
+                <th>@Html.DisplayNameFor(p => p.First().Emp_OccupationID)</th>
+                <th>@Html.DisplayNameFor(p => p.First().Emp_DeptID)</th>
+                <th>管理</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var emp in Model)
+            {
+                <tr>
+                    @Html.HiddenFor(p => emp.EmployeeID)
+                    <td>@Html.DisplayFor(p => emp.Emp_Name)</td>
+                    <td>@Html.DisplayFor(p => emp.Emp_Occupation.Emp_OccupationName)</td>
+                    <td>@Html.DisplayFor(p => emp.Dept_Information.Dept_Name)</td>
+                    <td><a href="~/Admin/Update/@emp.EmployeeID" class="btn btn-primary" data-toggle="modal" data-target="#div2">編輯</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+<div class="modal fade" id="div2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+</div>
+
+

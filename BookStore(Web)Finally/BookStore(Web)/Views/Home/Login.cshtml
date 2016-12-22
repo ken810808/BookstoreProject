@@ -1,0 +1,357 @@
+﻿@model BookStore_Web_.Models.Emp_Information
+
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<link href="~/Content/buttons.css" rel="stylesheet" />
+<link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+<link href="~/Content/css.css" rel="stylesheet" />
+<link href="~/Content/animate.min.css" rel="stylesheet" />
+<link href="~/Content/colorbox.css" rel="stylesheet" />
+
+<title>員工登入</title>
+<style>
+    body, html {
+        height: 100%;
+        background-repeat: no-repeat;
+        background: rgba(76,176,249,1);
+        background: -moz-linear-gradient(top, rgba(76,176,249,1) 0%, rgba(157,203,143,1) 48%, rgba(164,206,135,1) 52%, rgba(236,230,40,1) 95%);
+        background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(76,176,249,1)), color-stop(48%, rgba(157,203,143,1)), color-stop(52%, rgba(164,206,135,1)), color-stop(95%, rgba(236,230,40,1)));
+        background: -webkit-linear-gradient(top, rgba(76,176,249,1) 0%, rgba(157,203,143,1) 48%, rgba(164,206,135,1) 52%, rgba(236,230,40,1) 95%);
+        background: -o-linear-gradient(top, rgba(76,176,249,1) 0%, rgba(157,203,143,1) 48%, rgba(164,206,135,1) 52%, rgba(236,230,40,1) 95%);
+        background: -ms-linear-gradient(top, rgba(76,176,249,1) 0%, rgba(157,203,143,1) 48%, rgba(164,206,135,1) 52%, rgba(236,230,40,1) 95%);
+        background: linear-gradient(to bottom, rgba(76,176,249,1) 0%, rgba(157,203,143,1) 48%, rgba(164,206,135,1) 52%, rgba(236,230,40,1) 95%);
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4cb0f9', endColorstr='#ece628', GradientType=0 );
+    }
+
+    .h3 {
+        color: #EBE628;
+        font-size: larger;
+        background: rgba(76,176,249,1);
+    }
+
+    .img-responsive {
+        display: inline-block;
+    }
+
+    .card-container.card {
+        max-width: 350px;
+        padding: 40px 40px;
+    }
+
+    .btn {
+        font-weight: 700;
+        height: 36px;
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        user-select: none;
+        cursor: default;
+    }
+
+    .card {
+        background-color: #ffffff;
+        padding: 20px 25px 30px;
+        margin: 0 auto 25px;
+        margin-top: 50px;
+        -moz-border-radius: 2px;
+        -webkit-border-radius: 2px;
+        border-radius: 2px;
+        -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+        -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+        box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    }
+
+    .profile-img-card {
+        width: 96px;
+        height: 96px;
+        margin: 0 auto 10px;
+        display: block;
+        -moz-border-radius: 50%;
+        -webkit-border-radius: 50%;
+        border-radius: 50%;
+    }
+
+    .profile-name-card {
+        font-size: 16px;
+        font-weight: bold;
+        text-align: center;
+        margin: 10px 0 0;
+        min-height: 1em;
+    }
+
+    .reauth-email {
+        display: block;
+        color: #404040;
+        line-height: 2;
+        margin-bottom: 10px;
+        font-size: 14px;
+        text-align: center;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+
+    .form-signin #inputEmail,
+    .form-signin #inputPassword {
+        direction: ltr;
+        height: 44px;
+        font-size: 16px;
+    }
+
+    .form-signin input[type=email],
+    .form-signin input[type=password],
+    .form-signin input[type=text],
+    .form-signin button {
+        width: 100%;
+        display: block;
+        margin-bottom: 10px;
+        z-index: 1;
+        position: relative;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+
+    .form-signin .form-control:focus {
+        border-color: rgb(104, 145, 162);
+        outline: 0;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgb(104, 145, 162);
+        box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgb(104, 145, 162);
+    }
+
+    .btn.btn-signin {
+        background-color: rgb(104, 145, 162);
+        padding: 0px;
+        font-weight: 700;
+        font-size: 14px;
+        height: 36px;
+        -moz-border-radius: 3px;
+        -webkit-border-radius: 3px;
+        border-radius: 3px;
+        border: none;
+        -o-transition: all 0.218s;
+        -moz-transition: all 0.218s;
+        -webkit-transition: all 0.218s;
+        transition: all 0.218s;
+    }
+
+        .btn.btn-signin:hover,
+        .btn.btn-signin:active,
+        .btn.btn-signin:focus {
+            background-color: rgb(12, 97, 33);
+        }
+
+    .forgot-password {
+        color: rgb(104, 145, 162);
+    }
+
+        .forgot-password:hover,
+        .forgot-password:active,
+        .forgot-password:focus {
+            color: rgb(12, 97, 33);
+        }
+
+    .title {
+        font-family: 'Microsoft JhengHei UI';
+        font-size: 50px;
+    }
+
+    #div1, #div2 {
+        font-family: 'Microsoft JhengHei UI';
+        color: red;
+    }
+</style>
+
+
+
+<body>
+    <div>
+        <div>
+            <span id="animationSandbox" style="display:block;text-align:center" class="lightSpeedIn animated">
+                <h1 class="title" style="color:yellow">MSIT105專題發表-工時管理及打卡系統</h1>
+            </span>
+
+            <span style="display:block;text-align:center" class="slideInLeft animated">
+                <div class="col-md-4">
+                    <h2 style="color:white;font-family:'Microsoft JhengHei UI'">總經理</h2>
+                    <button class="button button-3d button-action button-circle button-jumbo User1" value="總經理"><i class="glyphicon glyphicon-user"></i></button>
+                </div>
+                <div class="col-md-4">
+                    <h2 style="color:white;font-family:'Microsoft JhengHei UI'">人資部 : 部門主管</h2>
+                    <button class="button button-3d button-action button-circle button-jumbo User2" value="部門主管"><i class="glyphicon glyphicon-user"></i></button>
+                </div>
+                <div class="col-md-4">
+                    <h2 style="color:white;font-family:'Microsoft JhengHei UI'">人資部 : 一般員工</h2>
+                    <button class="button button-3d button-action button-circle button-jumbo User3" value="一般員工"><i class="glyphicon glyphicon-user"></i></button>
+                </div>
+            </span>
+            <br />
+        </div>
+    </div>
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+
+    <span style="display:block" class="rollIn animated">
+
+        <div class="container">
+            <div class="card card-container">
+                <img src="~/Content/img/TroLogoWeb.jpg" class="profile-img-card logo" id="profile-img" />
+                <p id="profile-name" class="profile-name-card"></p>
+                @using (@Html.BeginForm("Index", "Home", FormMethod.Post, new { @class = "form-signin form-horizontal", enctype = "multipart/form-data" }))
+                {
+                    <span id="reauth-email" class="reauth-email"></span>
+                    @*<input type="text" id="inputEmail" class="form-control" placeholder="員工編號" required autofocus>*@
+                    @Html.TextBoxFor(p => p.EmployeeID, new { @class = "form-control EmpID", id = "inputEmail", placeholder = "員工編號" })
+                    <div id="div1"></div>
+                    @*<input type="password" id="inputPassword" class="form-control" placeholder="密碼" required>*@
+                    @*@Html.TextBoxFor(p => p.Emp_Password, new { @class = "form-control EmpPassword", id = "inputPassword", type = "password", placeholder = "員工密碼" })*@
+                    <input type="password" name="EmpPassword" placeholder="員工密碼" class="form-control EmpPassword" id="inputPassword" />
+                    <div id="div2"></div>
+                    @*<div id="remember" class="checkbox">
+                            <label>
+                                <input type="checkbox" id="member" value="remember-me"> 記住我
+                            </label>
+                        </div>*@
+                    <input type="submit" value="Sign in" class="button button-3d  button-primary button-pill btn-signin btn-lg btn-block" id="loginbtn" />
+                }
+                <div style="margin-top:8px;">
+                    <button type="button" class="button button-3d button-caution button-pill btn-block" data-toggle="modal" data-target="#myModal">
+                        忘記密碼
+                    </button>
+
+                </div>
+            </div>
+        </div>
+    </span>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    @*<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>*@
+                    <h4 class="modal-title" id="myModalLabel">忘記密碼</h4>
+                </div>
+                <div class="modal-body">
+                    @using (Html.BeginForm("Reset", "Home", FormMethod.Post, new { @class = "form-horizontal myForm", encType = "multipart/form-data" }))
+                    {
+                        <div class="form-group">
+                            <label class="control-label">請輸入您的員工帳號以繼續</label>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(p => p.EmployeeID, new { @class = "col-md-3 control-label" })
+                            <div class="col-md-7">
+                                @Html.TextBoxFor(p => p.EmployeeID, new { @class = "form-control forgetNum", placeholder = "請輸入你的員工編號" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(p => p.Emp_Identity, new { @class = "col-md-3 control-label" })
+                            <div class="col-md-7">
+                                @Html.TextBoxFor(p => p.Emp_Identity, new { @class = "form-control forgetID", placeholder = "請輸入你的身分證" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">請重新輸入密碼</label>
+                            <div class="col-md-7">
+                                @Html.TextBoxFor(p => p.Emp_Password, new { @class = "form-control password", placeholder = "ex. P@ssw0Rd" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">再輸入一次密碼</label>
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control password1" placeholder="ex. P@ssw0Rd" />
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <input type="submit" class="btn btn-info btnOk" id="Emailbutton" value="確認(會發送Email驗證)" disabled="disabled" />
+                        </div>
+                    }
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <script src="~/Scripts/jquery-2.2.0.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery.colorbox-min.js"></script>
+    <script>
+        $('.logo').animate({
+            "opacity": "1"
+        }, 2000, function () { });
+
+        $('.User1').on("click", function () { Demo1() })
+        function Demo1() {
+            $('.EmpID').val("3")
+            $('.EmpPassword').val('001');
+        }
+
+        $('.User2').on("click", function () { Demo2() })
+        function Demo2() {
+            $('.EmpID').val("5")
+            $('.EmpPassword').val('003');
+        }
+
+
+        $('.User3').on("click", function () { Demo4() })
+        function Demo4() {
+            $('.EmpID').val("16")
+            $('.EmpPassword').val('012');
+        }
+        $('#inputEmail').on("blur", function () {
+            if ($('#inputEmail').val() == "") {
+                $('#div1').empty();
+                $('#div1').prepend("請輸入員工編號");
+            }
+            else {
+                $('#div1').empty();
+            }
+        });
+
+        $('#inputPassword').on("blur", function () {
+            if ($('#inputPassword').val() == "") {
+                $('#div2').empty();
+                $('#div2').prepend("請輸入員工密碼");
+            }
+            else {
+                $('#div2').empty();
+                valid();
+            }
+        });
+
+        function valid() {
+            if ($('#inputEmail').val() != "" && $('#inputPassword').val() == "") {
+                $('#loginbtn').removeClass('disabled')
+            }
+        }
+
+
+        $('.password1').on("blur", function () { valid(); });
+        function valid() {
+            $('.btnOk').prop("disabled", true);
+            if ($('.password').val() != $('.password1').val()) {
+                alert("密碼不相符");
+            }
+            else {
+                $('.btnOk').prop("disabled", false);
+            }
+        }
+        var id;
+        $(document).on('keyup', '#EmployeeID', function () {
+            id = this.value;
+
+        })
+        $(document).on('click', '#Emailbutton', function (e) {
+            e.stopPropagation;
+
+        })
+
+         
+    </script>
+</body>

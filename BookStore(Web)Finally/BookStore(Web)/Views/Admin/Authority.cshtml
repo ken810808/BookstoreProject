@@ -1,0 +1,58 @@
+﻿
+@model IEnumerable<BookStore_Web_.Models.Emp_Information>
+@{
+    ViewBag.Title = "Authority";
+    Layout = "~/Views/Shared/Easy.cshtml";
+}
+
+<link href="~/Content/animate.css" rel="stylesheet" />
+
+<div class="col-md-12">
+    <div class="wrap">
+        <span id="animationSandbox" style="display: block;" class="zoomIn animated"><h1 class="site__title mega">權限設定</h1></span>
+    </div>
+    <select id="select1" >
+        <option>請選擇..</option>
+    </select>
+    <select id="select2">
+        <option>請選擇..</option>
+    </select>
+</div>
+<div id="div1" class="col-md-offset-2"></div>
+
+
+<script>
+    var sel = $('#select1');
+    sel.on('change', deptload);
+
+    $.getJSON('@Url.Action("Dept", "Admin")', {}, function (datas) {
+        $.each(datas, function (i, category) {
+
+            var opt = $('<option></option>').val(0).text("請選擇...");
+            opt = $('<option></option>').val(category.DeptID).text(category.DeptName);
+            sel.append(opt);
+        });
+        deptload();
+    })
+   
+
+
+    var se2 = $('#select2');
+    se2.on('change', occuLoad);
+
+    $.getJSON('@Url.Action("Occu", "Admin")', {}, function (datas) {
+        $.each(datas, function (i, category) {
+            var opt = $('<option></option>').val(category.OccuID).text(category.OccuName);
+            se2.append(opt);
+        });
+        occuLoad();
+    })
+ 
+
+    function occuLoad() {
+        $('#div1').load('@Url.Action("LoadOccu", "Admin")/' + $('#select2').val());
+    }
+    function deptload() {   
+        $('#div1').load('@Url.Action("LoadDept", "Admin")/' + $('#select1').val());
+    }
+</script>

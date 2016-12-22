@@ -1,0 +1,120 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<BookStore_Web_.Models.Absence_Table>
+@{
+    ViewBag.Title = "AbsentBrowse";
+    Layout = "~/Views/Shared/Easy.cshtml";
+}
+<style>
+    .thumb {
+        width: 120px;
+        height: 90px;
+        border: solid 1px black;
+    }
+
+    .CheckChart {
+        float: left;
+        width: 45%;
+        height: 800px;
+        margin: 10px;
+    }
+
+</style>
+<link href="~/Content/animate.css" rel="stylesheet" />
+
+
+    <div class="wrap">
+        <span id="animationSandbox" style="display: block;" class="zoomIn animated"><h1 class="site__title mega">審核狀態</h1></span>
+    </div>
+    <div>
+        <label>篩選:</label>
+        <select id="sel1"></select>
+        <select id="sel2"></select>
+    </div>
+    <div>
+        <label>排序:</label>
+        <select id="sel3">
+            <option value="@ViewBag.SortAbsenceTableNo">@Html.DisplayNameFor(model => model.First().Absence_No).ToHtmlString() (正)</option>
+            <option value="@ViewBag.SortAbsenceTableNoDesc">@Html.DisplayNameFor(model => model.First().Absence_No).ToHtmlString() (逆)</option>
+            <option value="@ViewBag.SortAbsence_Type">@Html.DisplayNameFor(model => model.First().Absence_Type.Absence_Type1).ToHtmlString() (正)</option>
+            <option value="@ViewBag.SortAbsence_TypeDesc">@Html.DisplayNameFor(model => model.First().Absence_Type.Absence_Type1).ToHtmlString() (逆)</option>
+            <option value="@ViewBag.SortStartDate">@Html.DisplayNameFor(model => model.First().StartDate).ToHtmlString() (正)</option>
+            <option value="@ViewBag.SortStartDateDesc">@Html.DisplayNameFor(model => model.First().StartDate).ToHtmlString() (逆)</option>
+            <option value="@ViewBag.SortStatus">@Html.DisplayNameFor(model => model.First().ChechStatus.Status).ToHtmlString() (正)</option>
+            <option value="@ViewBag.SortStatusDesc">@Html.DisplayNameFor(model => model.First().ChechStatus.Status).ToHtmlString() (逆)</option>
+        </select>
+    </div>
+
+    <a href="~/Admin/AbsentCreate">新增假單</a>
+    <table class="table table-bordered table-hover scrolli">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.First().Absence_No).ToHtmlString()</th>
+                <th>@Html.DisplayNameFor(model => model.First().Emp_Information.Emp_Name).ToHtmlString()</th>
+                <th>@Html.DisplayNameFor(model => model.First().Emp_Information.Emp_DeptID).ToHtmlString()</th>
+                <th>@Html.DisplayNameFor(model => model.First().Absence_Type.Absence_Type1).ToHtmlString()</th>
+                <th>@Html.DisplayNameFor(model => model.First().StartDate).ToHtmlString()</th>
+                <th>@Html.DisplayNameFor(model => model.First().EndDate).ToHtmlString()</th>
+                <th>@Html.DisplayNameFor(model => model.First().Reason).ToHtmlString()</th>
+                <th>@Html.DisplayNameFor(model => model.First().Certificate_Doc)</th>
+                <th>@Html.DisplayNameFor(model => model.First().ChechStatus.Status).ToHtmlString()</th>
+                <th>編輯</th>
+                <th>刪除</th>
+            </tr>
+        </thead>
+        <tbody id="div1"></tbody>
+    </table>
+    <div id="mypager">
+        @Html.PagedListPager(Model, page => "#",
+                     PagedListRenderOptions.PageNumbersOnly)
+    </div>
+    <div id="CheckChart" class="CheckChart"></div>
+    <div id="CheckChart2" class="CheckChart"></div>
+
+    <script type="text/javascript" src="http://hacks.michelepasin.org/media/hacks/subjectsviz/d3/d3.v2.min.js"></script>
+    <script>
+
+        var sel = $('#sel1');
+        sel.on('change', function () { selload($('#mypager').children().children().children(".active").children('a').text()); })
+        var sel2 = $('#sel2');
+        sel2.on('change', function () { selload($('#mypager').children().children().children(".active").children('a').text()); })
+        var sel3 = $('#sel3');
+        sel3.on('change', function () { selload($('#mypager').children().children().children(".active").children('a').text()); })
+        var div = $('#div1');
+        var div2 = $('#CheckChart');
+        var div3 = $('#CheckChart2');
+        var pager = $('#mypager');
+        pager.on('click', 'a', function () { selload($(this).text()); })
+        $.getJSON('@Url.Action("Dept", "Admin")', {}, function (datas) {
+            var opt = new Option("--所有部門--", 0);
+            sel.append(opt);
+            $.each(datas, function (i, Dept) {
+                var opt = new Option(Dept.DeptName, Dept.DeptID);
+                sel.append(opt);
+            });
+        });
+        $.getJSON('@Url.Action("Occu", "Admin")', {}, function (datas) {
+            var opt = new Option("--所有職位--", 0);
+            sel2.append(opt);
+            $.each(datas, function (i, Occu) {
+                var opt = new Option(Occu.OccuName, Occu.OccuID);
+                sel2.append(opt);
+            });
+        });
+
+        selload();
+        chartLoad();
+        function selload(e) {
+            //div.load('/Admin/LoadAbsent?Dept=' + sel.val() + '&Occu=' + sel2.val() + '&sortBy=' + sel3.val() + '&page=' + e);
+            div.load('@Url.Action("LoadAbsent", "Admin")?Dept=' + sel.val() + '&Occu=' + sel2.val() + '&sortBy=' + sel3.val() + '&page=' + e);
+            //pager.load('/Admin/AbsentPager?Dept=' + sel.val() + '&Occu=' + sel2.val() + '&sortBy=' + sel3.val() + '&page=' + e);
+            pager.load('@Url.Action("AbsentPager", "Admin")?Dept=' + sel.val() + '&Occu=' + sel2.val() + '&sortBy=' + sel3.val() + '&page=' + e);
+        }
+
+        function chartLoad() {
+            //div2.load('/Admin/LoadAbsentChart');
+            div2.load('@Url.Action("LoadAbsentChart", "Admin")');
+            //div3.load('/Admin/LoadAbsentStatusChart');
+            div3.load('@Url.Action("LoadAbsentStatusChart", "Admin")');
+        }
+    </script>

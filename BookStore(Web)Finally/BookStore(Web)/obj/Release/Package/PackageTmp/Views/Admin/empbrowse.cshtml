@@ -1,0 +1,85 @@
+﻿@model BookStore_Web_.Models.Emp_Information
+@{
+    ViewBag.Title = "empbrowse";
+    Layout = "~/Views/Shared/Easy.cshtml";
+
+}
+
+<div class="col-md-3"></div>
+<div class="col-md-6" style="border-radius:30px;background: #d2dfed; /* Old browsers */ background: -moz-linear-gradient(top, #d2dfed 0%, #c8d7eb 26%, #bed0ea 51%, #a6c0e3 51%, #afc7e8 62%, #bad0ef 75%, #99b5db 88%, #799bc8 100%); /* FF3.6-15 */ background: -webkit-linear-gradient(top, #d2dfed 0%,#c8d7eb 26%,#bed0ea 51%,#a6c0e3 51%,#afc7e8 62%,#bad0ef 75%,#99b5db 88%,#799bc8 100%); /* Chrome10-25,Safari5.1-6 */ background: linear-gradient(to bottom, #d2dfed 0%,#c8d7eb 26%,#bed0ea 51%,#a6c0e3 51%,#afc7e8 62%,#bad0ef 75%,#99b5db 88%,#799bc8 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d2dfed', endColorstr='#799bc8',GradientType=0 );">
+    <h2>您的基本資料</h2>
+    <div class="form-group">
+        @Html.LabelFor(p => p.Emp_Name, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            <label class="control-label">@Model.Emp_Name</label>
+        </div>
+    </div><br />
+    <div class="form-group">
+        @Html.LabelFor(p => p.Emp_Log, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            <label class="control-label">@Model.Emp_Log</label>
+        </div>
+    </div><br />
+    <div class="form-group">
+        @Html.LabelFor(p => p.Emp_Password, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            <label class="control-label">@Model.Emp_Password</label>
+        </div>
+    </div><br />
+    <div class="form-group">
+        @Html.LabelFor(p => p.Emp_StartWorkingDate, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            <label class="control-label">@Model.Emp_StartWorkingDate</label>
+        </div>
+    </div><br />
+    <div class="form-group">
+        @Html.LabelFor(p => p.Emp_Tel, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            <label class="control-label">@Model.Emp_Tel</label>
+        </div>
+    </div><br />
+    <div class="form-group">
+        @Html.LabelFor(p => p.Emp_CellPhone, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            <label class="control-label">@Model.Emp_CellPhone</label>
+        </div>
+    </div><br />
+    <div class="form-group">
+        @Html.LabelFor(p => p.Emp_Gender.Emp_Gender1, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            <label class="control-label">@Model.Emp_Gender.Emp_Gender1</label>
+        </div>
+    </div><br />
+    <div class="form-group">
+        @Html.LabelFor(p => p.Emp_E_Mail, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            <label class="control-label">@Model.Emp_E_Mail</label>
+        </div>
+    </div><br />
+    <div class="form-group">
+        @Html.LabelFor(p => p.Emp_Identity, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            <label class="control-label">@Model.Emp_Identity</label>
+        </div>
+    </div><br />
+    <div class="form-group">
+        @Html.LabelFor(p => p.Emp_Occupation.Emp_OccupationName, new { @class = "col-md-2 control-label" })
+        @*<label class="col-md-2 control-label">權限</label>*@
+        <div class="col-md-10">
+            <label class="control-label">@Model.Emp_Occupation.Emp_OccupationName</label>
+        </div>
+    </div><br />
+    <div class="form-group">
+        @Html.LabelFor(p => p.Dept_Information.Dept_Name, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            <label class="control-label">@Model.Dept_Information.Dept_Name</label>
+        </div>
+    </div><br />
+    <div class="form-group">
+        @Html.LabelFor(p => p.Emp_Address, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            <label class="control-label">@Model.Emp_Address</label>
+        </div>
+    </div><br />
+</div>
+<div class="col-md-3"></div>

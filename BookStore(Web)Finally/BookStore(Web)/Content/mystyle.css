@@ -1,0 +1,36 @@
+﻿body {
+}
+        .w3-rest {
+    overflow: hidden;
+}
+            .w3-slim {
+    font-family: "Segoe UI",Arial,sans-serif !important;
+}
+    .w3-col, .w3-half, .w3-third, .w3-twothird, .w3-quarter {
+    float: left;
+    width: 100%;
+}
+    #leftmenu {
+    width: 220px;
+    z-index: 9;
+}
+    .w3-white {
+    color: #000 !important;
+    background-color: #fff !important;
+}
+    #leftmenuinner {
+    position: fixed;
+    top: 0;
+    padding-top: 112px;
+    padding-bottom: 0;
+    height: 100%;
+    width: 16.66666%;
+    width: 220px;
+    background-color: transparent;
+}
+    #leftmenuinnerinner {
+    height: 100%;
+    width: 100%;
+    overflow-y: hidden;
+    padding-top: 20px;
+}

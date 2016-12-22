@@ -1,0 +1,81 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<BookStore_Web_.Models.Emp_Information>
+<script src="~/Scripts/jquery-2.2.0.min.js"></script>
+
+<div class="scrolli">
+    <table class="table table-hover table-bordered">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(p => p.First().EmployeeID))
+                </th>
+                <th>
+                    @Html.DisplayNameFor(p => p.First().Emp_Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(p => p.First().Emp_DeptID)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(p => p.First().Emp_Report)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(p => p.First().Emp_Gender.Emp_Gender1)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(p => p.First().Emp_Identity)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(p => p.First().Emp_Occupation.Emp_OccupationName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(p => p.First().Emp_Tel)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(p => p.First().Emp_CellPhone)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(p => p.First().Emp_Address)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(p => p.First().Emp_StartWorkingDate)
+                </th>
+                <th>@Html.DisplayNameFor(p => p.First().Emp_Image)</th>
+                <th>編輯</th>
+                <th>刪除</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var EmpInfo in Model.Where(p => p.Emp_Dispose == false))
+            {
+                <tr>
+                    <td>@Html.DisplayFor(p => EmpInfo.EmployeeID)</td>
+                    <td>@Html.DisplayFor(p => EmpInfo.Emp_Name)</td>
+                    <td>@Html.DisplayFor(p => EmpInfo.Dept_Information.Dept_Name)</td>
+                    <td>@Html.DisplayFor(p => EmpInfo.Emp_Information2.Emp_Name)</td>
+                    <td>@Html.DisplayFor(p => EmpInfo.Emp_Gender.Emp_Gender1)</td>
+                    <td>@Html.DisplayFor(p => EmpInfo.Emp_Identity)</td>
+                    <td>@Html.DisplayFor(p => EmpInfo.Emp_Occupation.Emp_OccupationName)</td>
+                    <td>@Html.DisplayFor(p => EmpInfo.Emp_Tel)</td>
+                    <td>@Html.DisplayFor(p => EmpInfo.Emp_CellPhone)</td>
+                    <td>@Html.DisplayFor(p => EmpInfo.Emp_Address)</td>
+                    <td>@Html.DisplayFor(p => EmpInfo.Emp_StartWorkingDate)</td>
+                    <td>
+                        <img style="width:50px;height:50px;" src='@Url.Action("GetImageByte", "Admin", new { id = EmpInfo.EmployeeID })' class="img-thumbnail thumb" />
+                    </td>
+                    <td><a href="~/Admin/EmpEdit/@EmpInfo.EmployeeID" class="btn btn-primary">編輯</a></td>
+                    <td><a href="@Url.Action("Dispose", "Admin", new { id = EmpInfo.EmployeeID })" class="btn btn-danger">刪除</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+@Html.PagedListPager(Model, page => Url.Action("Browse", new { page, sortBy = Request["sortBy"] }), PagedListRenderOptions.Classic)
+
+
+
+
+
+
+
+

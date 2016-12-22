@@ -1,0 +1,32 @@
+﻿@model BookStore_Web_.Models.Location
+
+<div>
+    @using (Html.BeginForm("PunchCreate", "Admin", FormMethod.Post, FormMethod.Post, new { @class = "form-horizontal", enctype = "multipart/form-data" }))
+    {
+        <div class="form-group">
+            @Html.LabelFor(p => p.Location_Name, new { @class = "col-md-4 control-label" })
+            <div class="col-md-8">
+                @Html.TextBoxFor(p => p.Location_Name, new { id = "creat_location_name", @class = "form-control", placeholder = "地點名稱" })
+                @Html.ValidationMessageFor(p => p.Location_Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+            <div class="form-group">
+                @Html.LabelFor(p => p.Latitude, new { @class = "col-md-4 control-label" })
+                <div class="col-md-8">
+                    @Html.TextBoxFor(p => p.Latitude, new { id = "creat_location_lat", @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(p => p.Longitude, new { @class = "col-md-4 control-label" })
+                <div class="col-md-8">
+                    @Html.TextBoxFor(p => p.Longitude, new { id = "creat_location_lng", @class = "form-control" })
+                </div>
+            </div>
+       
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-7">
+                <button type="submit" id="CreateLocation" class="btn btn-success">新增</button>
+            </div>
+        </div>
+    }
+</div>

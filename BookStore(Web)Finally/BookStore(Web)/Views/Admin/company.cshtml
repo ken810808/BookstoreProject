@@ -1,0 +1,62 @@
+﻿@model IEnumerable<BookStore_Web_.Models.Emp_Information>
+
+@{
+    ViewBag.Title = "company";
+    Layout = "~/Views/Shared/Easy.cshtml";
+}
+
+
+<link href="~/Content/animate.css" rel="stylesheet" />
+<link href="~/Content/easyTree.css" rel="stylesheet" />
+<script src="~/Scripts/easyTree.js"></script>
+
+   
+ <div class="wrap">
+        <span id="animationSandbox" style="display: block;" class="zoomIn animated"><h1 class="site__title mega">員工階層圖</h1></span>
+    </div>
+    <div class="col-md-offset-4 col-md-4"></div>
+    <div class="easy-tree">
+        <ul>
+            @foreach (var mag in Model.Where(p => p.Emp_Report == null))
+            {
+                <li>
+                    @mag.Emp_Occupation.Emp_OccupationName : @mag.Emp_Name
+                    <ul>
+                        @foreach (var deptmag in Model.Where(c => c.Emp_Report == @mag.EmployeeID))
+                        {
+                            <li>
+                                @deptmag.Dept_Information.Dept_Name : @deptmag.Emp_Name
+                                <ul>
+                                    @foreach (var emp in Model.Where(q => q.Emp_Report == @deptmag.EmployeeID))
+                                    {
+                                        <li>@emp.Dept_Information.Dept_Name : @emp.Emp_Name</li>
+                                    }
+                                </ul>
+                            </li>
+                        }
+                    </ul>
+                </li>
+            }
+        </ul>
+    </div>
+
+
+
+    <script>
+
+
+
+        (function ($) {
+            function init() {
+
+                $('.easy-tree').EasyTree({
+                    selectable: true,
+                    deletable: false,
+                    editable: false,
+                    addable: false,
+                });
+            }
+            window.onload = init();
+        })(jQuery)
+
+    </script>

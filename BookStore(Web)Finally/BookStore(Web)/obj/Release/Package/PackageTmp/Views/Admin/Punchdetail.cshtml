@@ -1,0 +1,36 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<BookStore_Web_.Models.CheckInDetail>
+@{
+    ViewBag.Title = "Punchdetail";
+    Layout = "~/Views/Shared/Easy.cshtml";
+}
+<div class="col-md-offset-2 " style="width:500px;">
+    <div class="wrap">
+        <span id="animationSandbox" style="display: block;" class="zoomIn animated"><h1 class="site__title mega">打卡紀錄查詢</h1></span>
+    </div>
+    <table class="table table-bordered table-hover scrollit">
+        <thead>
+            <tr>
+                <th>打卡編號</th>
+                <th>打卡姓名</th>
+                <th>打卡狀態</th>
+                <th>打卡地點</th>
+                <th>打卡日期</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var emp in Model)
+            {
+                <tr>
+                    <td>@emp.CheckInRecordID</td>
+                    <td>@emp.Emp_Information.Emp_Name</td>
+                    <td>@emp.Emp_AttendancyType.Emp_AttendancyType1</td>
+                    <td>@emp.CheckInLocation</td>
+                    <td>@emp.CheckInDateTime</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    @Html.PagedListPager(Model, page => Url.Action("Punchdetail", new { page }), PagedListRenderOptions.ClassicPlusFirstAndLast)
+</div>

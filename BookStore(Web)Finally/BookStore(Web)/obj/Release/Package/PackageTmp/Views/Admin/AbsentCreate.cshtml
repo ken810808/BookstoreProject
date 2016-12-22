@@ -1,0 +1,197 @@
+﻿@using System.Globalization;
+@model BookStore_Web_.Models.Absence_Table
+@{
+    ViewBag.Title = "AbsentCreate";
+    Layout = "~/Views/Shared/Easy.cshtml";
+}
+<link href="~/Content/datetimepicker/jquery.datetimepicker.css" rel="stylesheet" />
+<style>
+    .thumb {
+        width: 120px;
+        height: 90px;
+        border: solid 1px black;
+    }
+</style>
+<div class="col-md-3"></div>
+<div class="col-md-6" style="background: #d2dfed; /* Old browsers */
+background: -moz-linear-gradient(top, #d2dfed 0%, #c8d7eb 26%, #bed0ea 51%, #a6c0e3 51%, #afc7e8 62%, #bad0ef 75%, #99b5db 88%, #799bc8 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top, #d2dfed 0%,#c8d7eb 26%,#bed0ea 51%,#a6c0e3 51%,#afc7e8 62%,#bad0ef 75%,#99b5db 88%,#799bc8 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom, #d2dfed 0%,#c8d7eb 26%,#bed0ea 51%,#a6c0e3 51%,#afc7e8 62%,#bad0ef 75%,#99b5db 88%,#799bc8 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d2dfed', endColorstr='#799bc8',GradientType=0 );border-radius:30px;">
+
+    <div class="wrap">
+        <span id="animationSandbox" style="display: block;" class="zoomIn animated col-md-offset-2"><h1 class="site__title mega">申請請假單</h1></span>
+    </div>
+
+    <div class="container body-content" style="margin-top:30px;">
+        @using (Html.BeginForm("AbsentCreate", "Admin", FormMethod.Post, new { @class = "form-horizontal", @id = "Addform", encType = "multipart/form-data" }))
+        {
+            <div class="form-group">
+                @Html.LabelFor(p => p.Absence_Type, new { @class = "col-md-3 control-label" })
+                <div class="col-md-9">
+                    @Html.DropDownListFor(p => p.Absence_ID, (SelectList)ViewBag.AbsenceType, "--請選擇--", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(p => p.Absence_ID, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(p => p.StartDate, new { @class = "col-md-3 control-label" })
+                <div class="col-md-9">
+                    <input id="StartDate" name="StartDate" type="text" class="form-control" autocomplete="off" placeholder="請填寫請假起始日期、時間" />
+                    <div hidden id="StartDatetime-error" class="text-danger">請填寫請假起始日期、時間</div>
+                    @Html.ValidationMessageFor(p => p.StartDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(p => p.EndDate, new { @class = "col-md-3 control-label" })
+                <div class="col-md-9">
+                    <input id="EndDate" name="EndDate" type="text" class="form-control" autocomplete="off" placeholder="請填寫請假起始日期、時間" />
+                    <div hidden id="EndDatetime-error" class="text-danger">請填寫請假結束日期、時間</div>
+                    @Html.ValidationMessageFor(p => p.EndDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(p => p.Reason, new { @class = "col-md-3 control-label" })
+                <div class="col-md-9">
+                    @Html.EditorFor(p => p.Reason, new { htmlAttributes = new { @class = "form-control", placeholder = "字數不得超過300" } })
+                    @Html.ValidationMessageFor(p => p.Reason, "", new { @class = "text-danger" })
+                </div>
+
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(p => p.Certificate_Doc, new { @class = "col-md-3 control-label" })
+                <div class="col-md-9">
+                    <img id="newImg" class="form-control thumb" />
+                    <input type="file" name="CertificateDoc" id="CertificateDoc" value="img" accept="image/x-png, image/gif, image/jpeg, image/jpg" />
+                    <div hidden class="text-danger" name="Certificate_Doc_ErrorMessage" id="Certificate_Doc_ErrorMessage"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-3 col-md-9">
+                    
+                    <input type="submit" class="btn btn-default" id="Addbtn" value="新增" />
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<div class="col-md-3"></div>
+<script src="~/Scripts/datetimepicker/jquery.js"></script>
+<script src="~/Scripts/datetimepicker/jquery.datetimepicker.full.min.js"></script>
+<script>
+    var startDate = $('#StartDate');
+    var endDate = $('#EndDate');
+    var startDateError = $('#StartDatetime-error');
+    var endDateError = $('#EndDatetime-error');
+    var flag = false;
+
+    $.datetimepicker.setLocale('zh-TW');
+    startDate.datetimepicker({
+        allowTimes: [
+         '上午 09:00', '上午 09:30', '上午 10:00', '上午 10:30', '上午 11:00', '上午 11:30', '下午 12:00', '下午 12:30', '下午 13:00', '下午 13:30', '下午 14:00', '下午 14:30',
+         '下午 15:00', '下午 15:30', '下午 16:00', '下午 16:30', '下午 17:00', '下午 17:30', '下午 18:00'
+        ],
+        formatTime: 'A h:i ',
+        format: 'Y/m/d A h:i',
+        validateOnBlur: false
+    });
+    endDate.datetimepicker({
+        allowTimes: [
+         '上午 09:00', '上午 09:30', '上午 10:00', '上午 10:30', '上午 11:00', '上午 11:30', '下午 12:00', '下午 12:30', '下午 13:00', '下午 13:30', '下午 14:00', '下午 14:30',
+         '下午 15:00', '下午 15:30', '下午 16:00', '下午 16:30', '下午 17:00', '下午 17:30', '下午 18:00'
+        ],
+        formatTime: 'A h:i ',
+        format: 'Y/m/d A h:i',
+        validateOnBlur: false
+    });
+
+
+    function checkNull(time, timeError) {
+        if (time.val() == "") {
+            timeError.show();
+            return false;
+        }
+        else {
+            timeError.hide();
+            return true;
+        }
+    }
+
+    function checkDateTime() {
+        if (startDate.val() === "") {
+            startDateError.text("請填寫請假起始時間!!");
+            startDateError.show()
+            return false;
+        }
+        else
+            startDateError.hide();
+
+        if (endDate.val() === "") {
+            endDateError.text("請填寫請假結束時間!!");
+            endDateError.show();
+            return false;
+        }
+        else
+            endDateError.hide();
+
+        if (startDate.val() >= endDate.val()) {
+            startDateError.text("請假起始時間不可晚於或等於結束時間!!");
+            startDateError.show();
+            return false;
+        }
+        else
+            return true;
+    };
+    startDate.on("blur", function () {
+        checkNull($(this), startDateError);
+    });
+
+    endDate.on("blur", function () {
+        checkNull($(this), endDateError);
+    });
+
+    function checkFile(e, input) {
+        var fileName = e;
+        var fileError = $('#Certificate_Doc_ErrorMessage');
+        if (fileName == "") {
+            fileError.hide();
+            return true;
+        }
+        var _filename = fileName.split(".")[1].toLowerCase();
+        if (_filename === "png" || _filename === "gif" || _filename === "jpeg" || _filename === "jpg") {
+            fileError.hide();
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#newImg').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+
+            return true;
+        }
+        else {
+            fileError.text("副檔名為" + fileName.split(".")[1] + "的格式不正確，請上傳圖片檔(.jpg;.jpeg;.gif)。");
+            fileError.show();
+            return false;
+        }
+    }
+
+    $("#CertificateDoc").on('change', function () {
+        checkFile($(this).val(),this);
+    });
+
+    $('#Addbtn').on("click", function (e) {
+        flag = true;
+        var check1 = checkDateTime();
+        var check3 = checkFile($("#CertificateDoc").val());
+        if (check1 && check3) {
+            $('#Addform').submit();
+        } else {
+            return false;
+        }
+    });
+
+</script>
+
+
+

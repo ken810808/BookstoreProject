@@ -1,0 +1,32 @@
+﻿@model IEnumerable<BookStore_Web_.Models.Location>
+
+@using (Html.BeginForm("PunchUpdate1", "Admin", FormMethod.Post, FormMethod.Post, new { @class = "form-horizontal", enctype = "multipart/form-data" }))
+{
+    <div class="scrolli" style="width:600px;">
+        <table class="table table-hover table-bordered">
+            <thead>
+                <tr>
+                    <th>@Html.LabelFor(p => p.First().Location_Name)</th>
+                    <th>@Html.LabelFor(p => p.First().Latitude)</th>
+                    <th>@Html.LabelFor(p => p.First().Longitude)</th>
+                    <th>編輯</th>
+                    <th>刪除</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var locat in Model)
+            {
+                    <tr>
+                        <td class="change1">@locat.Location_Name<input type="hidden" value="@locat.LocationID" /></td>
+                        <td class="change2">@Html.DisplayFor(p => locat.Latitude)</td>
+                        <td class="change3">@Html.DisplayFor(p => locat.Longitude)</td>
+                        <td><input type="button" value="編輯" id="@locat.LocationID" class="btn-primary btn" /></td>
+                        <td id="tddel"><a href="~/Admin/Delete/@locat.LocationID" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a></td>
+                    </tr>
+            }
+            </tbody>
+
+        </table>
+        </div>
+        }
+

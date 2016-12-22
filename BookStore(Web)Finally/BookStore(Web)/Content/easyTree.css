@@ -1,0 +1,131 @@
+/** Easy Tree style */
+.easy-tree {
+    min-height: 20px;
+    margin-bottom: 20px;
+    /*background-color: #e56155;*/
+    /*background-color:#fcfd46;*/
+    color: #fff;
+    border: none;
+    border-top: none;
+    padding-bottom: 15px;
+    width:350px;
+    font-size:20px;
+    font-family:'Microsoft JhengHei UI';
+}
+
+.easy-tree > ul {
+    padding-left: 15px;
+}
+
+.easy-tree li {
+    list-style-type: none;
+    margin: 0;
+    padding: 10px 5px 0 5px;
+    position: relative
+}
+
+.easy-tree li::before, .easy-tree li::after {
+    content: '';
+    left: -30px;
+    position: absolute;
+    right: auto
+}
+
+.easy-tree li::before {
+    border-left: 1px solid #fff;
+    bottom: 50px;
+    height: 100%;
+    top: 0;
+    width: 1px
+}
+
+.easy-tree li::after {
+    border-top: 1px solid #fff;
+    height: 20px;
+    top: 25px;
+    width: 50px;
+}
+
+.easy-tree li > span {
+    border: 1px solid #fff;
+    border-radius: 3px;
+    display: inline-block;
+    padding: 5px;
+    text-decoration: none
+}
+
+.easy-tree li.parent_li > span {
+    cursor: pointer
+}
+
+
+.easy-tree > ul > li::before, .easy-tree > ul > li::after {
+    border: 0
+}
+
+.easy-tree li:last-child::before {
+    height: 30px
+}
+
+.easy-tree li.parent_li > span:hover, .easy-tree li.parent_li > span:hover + ul li span {
+    /*移到ul下面的li背景顏色*/
+    background: #EaE528; 
+    font-size:25px;
+    color: black;
+}
+
+.easy-tree li.parent_li > span:hover + ul li.li_selected span {
+    background: #4698DA;
+    color: black;
+    font-weight:bold;
+}
+
+.easy-tree li > span > a {
+    color: black;
+    text-decoration: none;
+}
+
+.easy-tree {
+
+}
+
+.easy-tree li > span > span.glyphicon-folder-close, .easy-tree li > span > span.glyphicon-folder-open {
+    margin-right: 5px;
+}
+
+.easy-tree li.li_selected > span, .easy-tree li.li_selected > span > a {
+    background: #e5e2e1;
+    color: black;
+}
+
+.easy-tree li.li_selected > span:hover, .easy-tree li.li_selected > span:hover > a {
+    background: #fafafa;
+    color: #4698DA;
+}
+
+.easy-tree .easy-tree-toolbar {
+    background-color: white;
+}
+
+.easy-tree .easy-tree-toolbar > div {
+    display: inline-block;
+}
+
+.easy-tree .easy-tree-toolbar > div > button {
+    border-radius: 0;
+    margin: 20px 5px;
+}
+
+.easy-tree .easy-tree-toolbar .create .input-group {
+    top: -15px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.easy-tree .easy-tree-toolbar .create .input-group input {
+    border-radius: 0;
+}
+
+.easy-tree .easy-tree-toolbar .create .input-group button {
+    border-radius: 0;
+}

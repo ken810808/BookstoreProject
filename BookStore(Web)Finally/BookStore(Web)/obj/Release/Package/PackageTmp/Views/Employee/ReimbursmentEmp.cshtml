@@ -1,0 +1,50 @@
+﻿
+@{
+    ViewBag.Title = "薪資瀏覽";
+    Layout = "~/Views/Shared/EasyEmp.cshtml";
+}
+
+<style>
+    .brow:hover {
+      font-size:20px;
+    }
+    .Pie:hover {
+      font-size:20px;
+    }
+    .Line:hover {
+      font-size:20px;
+    }
+</style>
+<link href="~/Content/animate.css" rel="stylesheet" />
+
+    <div class="wrap">
+        <span id="animationSandbox" style="display: block;" class="swing animated"><h1 class="site__title mega">薪資瀏覽</h1></span>
+    </div>
+
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav"></ul>
+
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a class="brow">個人薪資瀏覽</a></li>                        
+                    <li><a class="Line">各月統計</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>
+<div id="divdata"></div>
+<script src="~/Scripts/jquery-2.2.0.min.js"></script>
+<script>
+    $('.brow').on('click', function () {
+        $('#divdata').load('@Url.Action("PartialSalary", "Employee")');
+    })
+    $('.Line').on('click', function () {
+        $('#divdata').load('@Url.Action("PartialLine", "Employee")');
+    })
+  
+</script>
+
+    

@@ -1,0 +1,59 @@
+﻿@model global::BookStore_Web_.Models.VM.UserSchedule
+<link href="~/Content/dashboard.css" rel="stylesheet" />
+<style>
+    .liContain {
+        margin-left: 13%;
+    }
+
+    .red {
+        color: red;
+    }
+
+    .green {
+        color: green;
+    }
+</style>
+<div class="sidebar" style="height:400px;">
+    <ul class="nav nav-sidebar">
+        <li>
+            <center><h4>詳細表</h4></center>
+            <label class="liContain">員工姓名</label>
+            <br />
+            <p class="liContain">@Model.name</p>
+            <label class="liContain">申請時間開始</label>
+            <br />
+            <p class="liContain">@Model.ScheduleDateTime</p>
+            <label class="liContain">申請時間結束</label>
+            <br />
+            <p class="liContain">@Model.Application_DateTime</p>
+            <label class="liContain">申請地點</label>
+            <br />
+            <p class="liContain">@Model.locationName</p>
+            <label class="liContain">申請備註</label>
+            <br />
+            <p class="liContain">@Model.Application_Reason</p>
+            <label class="liContain">申請狀態</label>
+            <br />
+            @if (Model.status == "審核通過")
+            {
+                <text>
+                    <p class="liContain green">@Model.status</p>
+                </text>
+            }
+            else if (Model.status == "審核未通過")
+            {
+                <text>
+                    <p class="liContain red">@Model.status</p>
+                </text>
+            }
+            else
+            {
+                <text>
+                    <p class="liContain">@Model.status</p>
+                </text>
+            }
+
+        </li>
+    </ul>
+</div>
+     

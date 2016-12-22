@@ -1,0 +1,411 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Absence_Table">
+    <Key>
+      <PropertyRef Name="Absence_No" />
+    </Key>
+    <Property Name="Absence_No" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EmployeeID" Type="int" Nullable="false" />
+    <Property Name="Absence_ID" Type="int" Nullable="false" />
+    <Property Name="StartDate" Type="datetime" Nullable="false" />
+    <Property Name="EndDate" Type="datetime" Nullable="false" />
+    <Property Name="Reason" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Certificate_Doc" Type="image" />
+    <Property Name="Check_ID" Type="int" />
+    <Property Name="Dispose" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Absence_Type">
+    <Key>
+      <PropertyRef Name="Absence_ID" />
+    </Key>
+    <Property Name="Absence_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Absence_Type" Type="nchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="ChechStatus">
+    <Key>
+      <PropertyRef Name="Check_ID" />
+    </Key>
+    <Property Name="Check_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Status" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CheckInDetail">
+    <Key>
+      <PropertyRef Name="CheckInRecordID" />
+    </Key>
+    <Property Name="CheckInRecordID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EmployeeID" Type="int" Nullable="false" />
+    <Property Name="Emp_AttendacyID" Type="int" Nullable="false" />
+    <Property Name="Absence_ID" Type="int" />
+    <Property Name="CheckInLocation" Type="nvarchar" MaxLength="50" />
+    <Property Name="CheckInDateTime" Type="datetime" />
+    <Property Name="CheclInLatitude" Type="nvarchar" MaxLength="50" />
+    <Property Name="CheckLongitude" Type="nvarchar" MaxLength="50" />
+    <Property Name="Dis_Between_Previous" Type="nvarchar" MaxLength="50" />
+    <Property Name="Note" Type="nvarchar" MaxLength="50" />
+    <Property Name="In_Out" Type="bit" />
+  </EntityType>
+  <!--產生期間發現錯誤:
+警告 6002: 資料表/檢視 'C:\USERS\III\DESKTOP\BOOKSTORE(WEB)\WEBAPPLICATION1\APP_DATA\BOOKSTOREOBJECT .MDF.dbo.Cmp_Information' 未定義主索引鍵。已推斷此索引鍵，並將定義建立成唯讀的資料表/檢視。-->
+  <EntityType Name="Cmp_Information">
+    <Key>
+      <PropertyRef Name="Cmp_Name" />
+      <PropertyRef Name="Cmp_Tel" />
+      <PropertyRef Name="Cmp_Address" />
+    </Key>
+    <Property Name="Cmp_Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Cmp_Tel" Type="int" Nullable="false" />
+    <Property Name="Cmp_Address" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Cmp_Logo" Type="varbinary" MaxLength="50" />
+    <Property Name="Cmp_TaxID" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Dept_Information">
+    <Key>
+      <PropertyRef Name="Emp_DeptID" />
+    </Key>
+    <Property Name="Emp_DeptID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Dept_Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Emp_AttendancyType">
+    <Key>
+      <PropertyRef Name="Emp_AttendacyID" />
+    </Key>
+    <Property Name="Emp_AttendacyID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Emp_AttendancyType" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Emp_Authority">
+    <Key>
+      <PropertyRef Name="Emp_AuthorityID" />
+    </Key>
+    <Property Name="Emp_AuthorityID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Emp_AuthorityRange" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Emp_Information">
+    <Key>
+      <PropertyRef Name="EmployeeID" />
+    </Key>
+    <Property Name="EmployeeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Emp_OccupationID" Type="int" Nullable="false" />
+    <Property Name="Emp_Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Emp_Tel" Type="nvarchar" MaxLength="50" />
+    <Property Name="Emp_CellPhone" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Emp_Address" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Emp_E-Mail" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Emp_Gender" Type="bit" Nullable="false" />
+    <Property Name="Emp_StartWorkingDate" Type="date" Nullable="false" />
+    <Property Name="Emp_Image" Type="image" />
+    <Property Name="Emp_DeptID" Type="int" />
+    <Property Name="Emp_Report" Type="int" />
+    <Property Name="Emp_Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Emp_Identity" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Emp_Log" Type="nvarchar" MaxLength="50" />
+    <Property Name="Emp_Dispose" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Emp_Occupation">
+    <Key>
+      <PropertyRef Name="Emp_OccupationID" />
+    </Key>
+    <Property Name="Emp_OccupationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Emp_OccupationName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Salary" Type="int" />
+    <Property Name="Emp_AuthorityID" Type="int" />
+  </EntityType>
+  <EntityType Name="Location">
+    <Key>
+      <PropertyRef Name="LocationID" />
+    </Key>
+    <Property Name="LocationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Latitude" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Longitude" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Location_Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Location_DElete" Type="bit" />
+  </EntityType>
+  <EntityType Name="reimbursement">
+    <Key>
+      <PropertyRef Name="ScheduleID" />
+    </Key>
+    <Property Name="ScheduleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Allowance" Type="int" Nullable="false" />
+    <Property Name="Invoice" Type="varbinary" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Salary">
+    <Key>
+      <PropertyRef Name="EmployeeID" />
+      <PropertyRef Name="DateTime" />
+    </Key>
+    <Property Name="EmployeeID" Type="int" Nullable="false" />
+    <Property Name="DateTime" Type="int" Nullable="false" />
+    <Property Name="Emp_Salary" Type="int" />
+    <Property Name="Emp_hours" Type="int" />
+  </EntityType>
+  <EntityType Name="Schedule">
+    <Key>
+      <PropertyRef Name="ScheduleID" />
+    </Key>
+    <Property Name="ScheduleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EmployeeID" Type="int" Nullable="false" />
+    <Property Name="ScheduleDateTime" Type="datetime" Nullable="false" />
+    <Property Name="LocationID" Type="int" />
+    <Property Name="Application_DateTime" Type="datetime" />
+    <Property Name="Application_Reason" Type="nvarchar" MaxLength="50" />
+    <Property Name="Check_ID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <Association Name="FK_Absence_Table_Absence_Type">
+    <End Role="Absence_Type" Type="Self.Absence_Type" Multiplicity="1" />
+    <End Role="Absence_Table" Type="Self.Absence_Table" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Absence_Type">
+        <PropertyRef Name="Absence_ID" />
+      </Principal>
+      <Dependent Role="Absence_Table">
+        <PropertyRef Name="Absence_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Absence_Table_ChechStatus">
+    <End Role="ChechStatus" Type="Self.ChechStatus" Multiplicity="0..1" />
+    <End Role="Absence_Table" Type="Self.Absence_Table" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ChechStatus">
+        <PropertyRef Name="Check_ID" />
+      </Principal>
+      <Dependent Role="Absence_Table">
+        <PropertyRef Name="Check_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Absence_Table_Emp_Information">
+    <End Role="Emp_Information" Type="Self.Emp_Information" Multiplicity="1" />
+    <End Role="Absence_Table" Type="Self.Absence_Table" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Emp_Information">
+        <PropertyRef Name="EmployeeID" />
+      </Principal>
+      <Dependent Role="Absence_Table">
+        <PropertyRef Name="EmployeeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CheckInDetail_Absence_Type">
+    <End Role="Absence_Type" Type="Self.Absence_Type" Multiplicity="0..1" />
+    <End Role="CheckInDetail" Type="Self.CheckInDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Absence_Type">
+        <PropertyRef Name="Absence_ID" />
+      </Principal>
+      <Dependent Role="CheckInDetail">
+        <PropertyRef Name="Absence_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CheckInDetail_Emp_AttendancyType">
+    <End Role="Emp_AttendancyType" Type="Self.Emp_AttendancyType" Multiplicity="1" />
+    <End Role="CheckInDetail" Type="Self.CheckInDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Emp_AttendancyType">
+        <PropertyRef Name="Emp_AttendacyID" />
+      </Principal>
+      <Dependent Role="CheckInDetail">
+        <PropertyRef Name="Emp_AttendacyID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CheckInDetail_Emp_Information">
+    <End Role="Emp_Information" Type="Self.Emp_Information" Multiplicity="1" />
+    <End Role="CheckInDetail" Type="Self.CheckInDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Emp_Information">
+        <PropertyRef Name="EmployeeID" />
+      </Principal>
+      <Dependent Role="CheckInDetail">
+        <PropertyRef Name="EmployeeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Emp_Information_Dept_Information">
+    <End Role="Dept_Information" Type="Self.Dept_Information" Multiplicity="0..1" />
+    <End Role="Emp_Information" Type="Self.Emp_Information" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Dept_Information">
+        <PropertyRef Name="Emp_DeptID" />
+      </Principal>
+      <Dependent Role="Emp_Information">
+        <PropertyRef Name="Emp_DeptID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Emp_Information_Emp_Information">
+    <End Role="Emp_Information" Type="Self.Emp_Information" Multiplicity="0..1" />
+    <End Role="Emp_Information1" Type="Self.Emp_Information" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Emp_Information">
+        <PropertyRef Name="EmployeeID" />
+      </Principal>
+      <Dependent Role="Emp_Information1">
+        <PropertyRef Name="Emp_Report" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Emp_Information_Emp_Occupation">
+    <End Role="Emp_Occupation" Type="Self.Emp_Occupation" Multiplicity="1" />
+    <End Role="Emp_Information" Type="Self.Emp_Information" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Emp_Occupation">
+        <PropertyRef Name="Emp_OccupationID" />
+      </Principal>
+      <Dependent Role="Emp_Information">
+        <PropertyRef Name="Emp_OccupationID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_reimbursement_Schedule">
+    <End Role="Schedule" Type="Self.Schedule" Multiplicity="1" />
+    <End Role="reimbursement" Type="Self.reimbursement" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Schedule">
+        <PropertyRef Name="ScheduleID" />
+      </Principal>
+      <Dependent Role="reimbursement">
+        <PropertyRef Name="ScheduleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Salary_Emp_Information">
+    <End Role="Emp_Information" Type="Self.Emp_Information" Multiplicity="1" />
+    <End Role="Salary" Type="Self.Salary" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Emp_Information">
+        <PropertyRef Name="EmployeeID" />
+      </Principal>
+      <Dependent Role="Salary">
+        <PropertyRef Name="EmployeeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Schedule_ChechStatus">
+    <End Role="ChechStatus" Type="Self.ChechStatus" Multiplicity="1" />
+    <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ChechStatus">
+        <PropertyRef Name="Check_ID" />
+      </Principal>
+      <Dependent Role="Schedule">
+        <PropertyRef Name="Check_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Schedule_Emp_Information">
+    <End Role="Emp_Information" Type="Self.Emp_Information" Multiplicity="1" />
+    <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Emp_Information">
+        <PropertyRef Name="EmployeeID" />
+      </Principal>
+      <Dependent Role="Schedule">
+        <PropertyRef Name="EmployeeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Schedule_Location">
+    <End Role="Location" Type="Self.Location" Multiplicity="0..1" />
+    <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Location">
+        <PropertyRef Name="LocationID" />
+      </Principal>
+      <Dependent Role="Schedule">
+        <PropertyRef Name="LocationID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ModelStoreContainer">
+    <EntitySet Name="Absence_Table" EntityType="Self.Absence_Table" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Absence_Type" EntityType="Self.Absence_Type" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ChechStatus" EntityType="Self.ChechStatus" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CheckInDetail" EntityType="Self.CheckInDetail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Dept_Information" EntityType="Self.Dept_Information" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Emp_AttendancyType" EntityType="Self.Emp_AttendancyType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Emp_Authority" EntityType="Self.Emp_Authority" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Emp_Information" EntityType="Self.Emp_Information" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Emp_Occupation" EntityType="Self.Emp_Occupation" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Location" EntityType="Self.Location" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="reimbursement" EntityType="Self.reimbursement" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Salary" EntityType="Self.Salary" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Schedule" EntityType="Self.Schedule" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Cmp_Information" EntityType="Self.Cmp_Information" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Cmp_Information].[Cmp_Name] AS [Cmp_Name], 
+    [Cmp_Information].[Cmp_Tel] AS [Cmp_Tel], 
+    [Cmp_Information].[Cmp_Address] AS [Cmp_Address], 
+    [Cmp_Information].[Cmp_Logo] AS [Cmp_Logo], 
+    [Cmp_Information].[Cmp_TaxID] AS [Cmp_TaxID]
+    FROM [dbo].[Cmp_Information] AS [Cmp_Information]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK_Absence_Table_Absence_Type" Association="Self.FK_Absence_Table_Absence_Type">
+      <End Role="Absence_Type" EntitySet="Absence_Type" />
+      <End Role="Absence_Table" EntitySet="Absence_Table" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Absence_Table_ChechStatus" Association="Self.FK_Absence_Table_ChechStatus">
+      <End Role="ChechStatus" EntitySet="ChechStatus" />
+      <End Role="Absence_Table" EntitySet="Absence_Table" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Absence_Table_Emp_Information" Association="Self.FK_Absence_Table_Emp_Information">
+      <End Role="Emp_Information" EntitySet="Emp_Information" />
+      <End Role="Absence_Table" EntitySet="Absence_Table" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CheckInDetail_Absence_Type" Association="Self.FK_CheckInDetail_Absence_Type">
+      <End Role="Absence_Type" EntitySet="Absence_Type" />
+      <End Role="CheckInDetail" EntitySet="CheckInDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CheckInDetail_Emp_AttendancyType" Association="Self.FK_CheckInDetail_Emp_AttendancyType">
+      <End Role="Emp_AttendancyType" EntitySet="Emp_AttendancyType" />
+      <End Role="CheckInDetail" EntitySet="CheckInDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CheckInDetail_Emp_Information" Association="Self.FK_CheckInDetail_Emp_Information">
+      <End Role="Emp_Information" EntitySet="Emp_Information" />
+      <End Role="CheckInDetail" EntitySet="CheckInDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Emp_Information_Dept_Information" Association="Self.FK_Emp_Information_Dept_Information">
+      <End Role="Dept_Information" EntitySet="Dept_Information" />
+      <End Role="Emp_Information" EntitySet="Emp_Information" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Emp_Information_Emp_Information" Association="Self.FK_Emp_Information_Emp_Information">
+      <End Role="Emp_Information" EntitySet="Emp_Information" />
+      <End Role="Emp_Information1" EntitySet="Emp_Information" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Emp_Information_Emp_Occupation" Association="Self.FK_Emp_Information_Emp_Occupation">
+      <End Role="Emp_Occupation" EntitySet="Emp_Occupation" />
+      <End Role="Emp_Information" EntitySet="Emp_Information" />
+    </AssociationSet>
+    <AssociationSet Name="FK_reimbursement_Schedule" Association="Self.FK_reimbursement_Schedule">
+      <End Role="Schedule" EntitySet="Schedule" />
+      <End Role="reimbursement" EntitySet="reimbursement" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Salary_Emp_Information" Association="Self.FK_Salary_Emp_Information">
+      <End Role="Emp_Information" EntitySet="Emp_Information" />
+      <End Role="Salary" EntitySet="Salary" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Schedule_ChechStatus" Association="Self.FK_Schedule_ChechStatus">
+      <End Role="ChechStatus" EntitySet="ChechStatus" />
+      <End Role="Schedule" EntitySet="Schedule" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Schedule_Emp_Information" Association="Self.FK_Schedule_Emp_Information">
+      <End Role="Emp_Information" EntitySet="Emp_Information" />
+      <End Role="Schedule" EntitySet="Schedule" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Schedule_Location" Association="Self.FK_Schedule_Location">
+      <End Role="Location" EntitySet="Location" />
+      <End Role="Schedule" EntitySet="Schedule" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
